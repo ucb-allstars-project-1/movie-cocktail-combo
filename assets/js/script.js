@@ -1,7 +1,7 @@
 //Start of the Code By SI
 
 const genres =["Action", "Horror", "Sci-Fi","Animation", "Adventure", "Comedy", "Family"];
-let oridinaryDrinksList;
+let ordinaryDrinksList;
 
 //Return a number between min and max-1
 function getRandomArbitrary(min, max) {
@@ -9,11 +9,11 @@ function getRandomArbitrary(min, max) {
 }
 //It returns an index randomly by genre
 function getRandomDrinkByGenre(genre){
-  let quantityOfDrinkPerGenre = Math.floor(oridinaryDrinksList.length / genres.length);
+  let quantityOfDrinkPerGenre = Math.floor(ordinaryDrinksList.length / genres.length);
   let indexInit = (quantityOfDrinkPerGenre * genres.indexOf(genre));
   let indexEnd = indexInit + quantityOfDrinkPerGenre -1;
   let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
-  return oridinaryDrinksList[drinkIndex];
+  return ordinaryDrinksList[drinkIndex];
 }
 
 function getFirstGenre(data){
@@ -29,14 +29,15 @@ function getOrdinaryDrinks() {
       if (response.ok) {
           response.json().then(function (data) {
           console.log(data);
-          oridinaryDrinksList = data.drinks;
-          });
+          ordinaryDrinksList = data.drinks;
+          //The next line has to be deleted
+          printRandomDrinks();})
       } else {
           alert('Error: ' + response.statusText);
       }
       })
       .catch(function (error) {
-      alert('Unable to connect to the Cocthecocktaildb.com');
+      alert('Unable to connect to the Cocktaildb.com');
       });
   };
 
@@ -65,6 +66,12 @@ let getMovieByTitle = function(event) {
       });
 };
 
+function printRandomDrinks(){
+    genres.forEach(element => {
+        let randomDrink = getRandomDrinkByGenre(element);
+        console.log("Genre: "+ element +" Drink:" + randomDrink.strDrink);
+      });
+}
 //This function will initialize the ordinary drink list
 function init(){
     getOrdinaryDrinks();
