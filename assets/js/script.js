@@ -1,8 +1,10 @@
 //Start of the Code By SI
+
 const movieTitleInputEl = document.querySelector('#movie-title');
 const movieFormEl = document.querySelector('#movie-form');
 const drinkImgEl = document.querySelector('#drink-img');
 const genres =["Action", "Horror", "Sci-Fi","Animation", "Adventure", "Comedy", "Family","Short","Drama","Romance"];
+
 let ordinaryDrinksList;
 
 //Return a number between min and max-1
@@ -12,17 +14,21 @@ function getRandomArbitrary(min, max) {
 //It returns an index randomly by genre
 function getRandomDrinkByGenre(genre){
   let quantityOfDrinkPerGenre = Math.floor(ordinaryDrinksList.length / genres.length);
+
   let genreIndex = genres.indexOf(genre);
   genreIndex = (genreIndex == -1)? 0: genreIndex;
   let indexInit = (quantityOfDrinkPerGenre * genreIndex);
+
   let indexEnd = indexInit + quantityOfDrinkPerGenre -1;
   let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
   return ordinaryDrinksList[drinkIndex];
 }
 
 function getFirstGenre(data){
+
   let genre = data.Genre.split(',');
   genre = Array.isArray(genre) ? data.Genre.split(',')[0] : genre;
+
   return data.Genre.split(',')[0];
 }
 
@@ -47,17 +53,20 @@ function getOrdinaryDrinks() {
       });
   };
 
+
 //This function get a ramdom Drink by the movie title that was input by the user in the form
 let getMovieByTitle = function(event) {
   event.preventDefault();
 
   let title = movieTitleInputEl.value.trim();
+
   let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&t=" + title;
   
   fetch(apiUrl)
       .then(function (response) {
       if (response.ok) {
           response.json().then(function (data) {
+
           let genre = getFirstGenre(data);
           let drink = getRandomDrinkByGenre(genre);
           console.log("Movie:" + title);
@@ -65,6 +74,7 @@ let getMovieByTitle = function(event) {
           console.log("Drink:" + drink.strDrink);
           drinkImgEl.setAttribute("src", drink.strDrinkThumb);
           movieTitleInputEl.value = '';
+
           });
       } else {
           alert('Error: ' + response.statusText);
@@ -86,7 +96,9 @@ function init(){
     getOrdinaryDrinks();
 }
 
+
 movieFormEl.addEventListener('submit', getMovieByTitle);
+
 init();
 
 // End of the Code By SI
@@ -110,7 +122,9 @@ var getDrinks= function () {
     };
 
     var getMovies= function () {
+
       var apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=Teenage Mutant Ninja Turtles";
+
       
       fetch(apiUrl)
           .then(function (response) {
