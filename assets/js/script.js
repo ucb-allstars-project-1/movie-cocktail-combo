@@ -1,3 +1,86 @@
+//Start of the Code By SI
+
+const genres =["Action", "Horror", "Sci-Fi","Animation", "Adventure", "Comedy", "Family"];
+let ordinaryDrinksList;
+
+//Return a number between min and max-1
+function getRandomArbitrary(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+//It returns an index randomly by genre
+function getRandomDrinkByGenre(genre){
+  let quantityOfDrinkPerGenre = Math.floor(ordinaryDrinksList.length / genres.length);
+  let indexInit = (quantityOfDrinkPerGenre * genres.indexOf(genre));
+  let indexEnd = indexInit + quantityOfDrinkPerGenre -1;
+  let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
+  return ordinaryDrinksList[drinkIndex];
+}
+
+function getFirstGenre(data){
+  return data.Genre.split(',')[0];
+}
+
+//Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
+function getOrdinaryDrinks() {
+  let apiUrl = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
+  
+  fetch(apiUrl)
+      .then(function (response) {
+      if (response.ok) {
+          response.json().then(function (data) {
+          console.log(data);
+          ordinaryDrinksList = data.drinks;
+          //The next line has to be deleted
+          printRandomDrinks();})
+      } else {
+          alert('Error: ' + response.statusText);
+      }
+      })
+      .catch(function (error) {
+      alert('Unable to connect to the Cocktaildb.com');
+      });
+  };
+
+//This function has to be called when the user click on the submit button
+let getMovieByTitle = function(event) {
+  //title = inputTitleEl.value.trim();
+  let title = "Blade";
+  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&t=" + title;
+  
+  fetch(apiUrl)
+      .then(function (response) {
+      if (response.ok) {
+          response.json().then(function (data) {
+          console.log("Movie:" + data);
+          let genre = getFirstGenre(data);
+          console.log("Genre: " + genre);
+          let drink = getRandomDrinkByGenre(genre);
+          console.log("Drink:" + drink.strDrink);
+          });
+      } else {
+          alert('Error: ' + response.statusText);
+      }
+      })
+      .catch(function (error) {
+      alert('Unable to connect to omdbapi.com');
+      });
+};
+
+function printRandomDrinks(){
+    genres.forEach(element => {
+        let randomDrink = getRandomDrinkByGenre(element);
+        console.log("Genre: "+ element +" Drink:" + randomDrink.strDrink);
+      });
+}
+//This function will initialize the ordinary drink list
+function init(){
+    getOrdinaryDrinks();
+}
+
+init();
+
+// End of the Code By SI
+
 var getDrinks= function () {
     var apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
     
@@ -17,7 +100,7 @@ var getDrinks= function () {
     };
 
     var getMovies= function () {
-      var apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=blade";
+      var apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&t=Teenage Mutant Ninja Turtles";
       
       fetch(apiUrl)
           .then(function (response) {
