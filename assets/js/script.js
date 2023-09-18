@@ -1,5 +1,3 @@
-//Start of the Code By SI
-
 const movieTitleInputEl = document.querySelector('#movie-title');
 const movieFormEl = document.querySelector('#movie-form');
 const drinkImgEl = document.querySelector('#drink-img');
@@ -7,32 +5,42 @@ const genres =["Action", "Horror", "Sci-Fi","Animation", "Adventure", "Comedy", 
 
 let ordinaryDrinksList;
 
-//Return a number between min and max-1
-function getRandomArbitrary(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
+
+function drinkArrayByGenre(firstGenre) {
+    if (firstGenre === "Adventure") {
+        console.log("true");
+        let drinkType = "Vodka";
+        getDrinksArray(drinkType);
+    }
+    if (firstGenre === "Action") {
+        let drinkType = "Whiskey";
+    }
+    if (firstGenre === "Comedy") {
+        let drinkType = "Rum";
+    }
+    if (firstGenre === "Horror") {
+        let drinkType = "Gin";
+    }
+    if (firstGenre === "Sci-Fi") {
+        let drinkType = "Wine";
+    }
+    if (firstGenre === "Drama") {
+        let drinkType = "Tequila";
+    }
 }
-//It returns an index randomly by genre
-function getRandomDrinkByGenre(genre){
-  let quantityOfDrinkPerGenre = Math.floor(ordinaryDrinksList.length / genres.length);
 
-  let genreIndex = genres.indexOf(genre);
-  genreIndex = (genreIndex == -1)? 0: genreIndex;
-  let indexInit = (quantityOfDrinkPerGenre * genreIndex);
-
-  let indexEnd = indexInit + quantityOfDrinkPerGenre -1;
-  let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
-  return ordinaryDrinksList[drinkIndex];
-}
-
-function getVodkaDrinks() {
-    let apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka";
+function getDrinksArray(drinkType) {
+    let apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + drinkType;
     
     fetch(apiUrl)
         .then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
             console.log(data);
-            adventureDrinksList = data.drinks;})
+            let randomArrayItem = Math.floor(Math.random() * data.drinks.length);
+            let randomDrink = data.drinks[randomArrayItem].strDrink;
+            console.log(randomDrink);
+        })
         } else {
             alert('Error: ' + response.statusText);
         }
@@ -44,9 +52,10 @@ function getVodkaDrinks() {
 
 
 function getFirstGenre(genre){
-console.log(genre);
-console.log(genre.split(',')[0]);
-  return genre.split(',')[0];
+    console.log(genre);
+    console.log(genre.split(',')[0]);
+    let firstGenre = genre.split(',')[0];
+    drinkArrayByGenre(firstGenre);
 }
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
@@ -114,26 +123,7 @@ movieFormEl.addEventListener('submit', getMovieByTitle);
 
 init();
 
-// End of the Code By SI
-
-// var getDrinks= function () {
-//     var apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
-    
-//     fetch(apiUrl)
-//         .then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (data) {
-//             console.log(data);
-//             });
-//         } else {
-//             alert('Error: ' + response.statusText);
-//         }
-//         })
-//         .catch(function (error) {
-//         alert('Unable to connect');
-//         });
-//     };
-
+// Currently using this fetch function for testing until title search initiated
     var getMovies= function () {
 
       var apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&t=barbie";
@@ -158,6 +148,4 @@ init();
           });
       };
 
-
-// getDrinks();
 getMovies();
