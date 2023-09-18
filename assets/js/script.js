@@ -60,7 +60,7 @@ let getMovieByTitle = function(event) {
 
   let title = movieTitleInputEl.value.trim();
 
-  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&t=" + title;
+  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&t=" + title;
   
   fetch(apiUrl)
       .then(function (response) {
