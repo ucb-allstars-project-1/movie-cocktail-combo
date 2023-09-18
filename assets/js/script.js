@@ -24,6 +24,25 @@ function getRandomDrinkByGenre(genre){
   return ordinaryDrinksList[drinkIndex];
 }
 
+function getVodkaDrinks() {
+    let apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka";
+    
+    fetch(apiUrl)
+        .then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+            console.log(data);
+            adventureDrinksList = data.drinks;})
+        } else {
+            alert('Error: ' + response.statusText);
+        }
+        })
+        .catch(function (error) {
+        alert('Unable to connect to the Cocktaildb.com');
+        });
+    };
+
+
 function getFirstGenre(genre){
 console.log(genre);
 console.log(genre.split(',')[0]);
@@ -39,9 +58,11 @@ function getOrdinaryDrinks() {
       if (response.ok) {
           response.json().then(function (data) {
           console.log(data);
-          ordinaryDrinksList = data.drinks;
+          let randomArrayItem = Math.floor(Math.random() * data.drinks.length);
+            let randomDrink = data.drinks[randomArrayItem].strDrink;
+            console.log(randomDrink);
           //The next line has to be deleted
-          printRandomDrinks();})
+})
       } else {
           alert('Error: ' + response.statusText);
       }
@@ -65,11 +86,10 @@ let getMovieByTitle = function(event) {
       if (response.ok) {
           response.json().then(function (data) {
 
-            let genre = data.Genre
+            let genre = data.Genre;
+            let title = data.Title;
          getFirstGenre(genre);
           let drink = getRandomDrinkByGenre(genre);
-          console.log("Movie:" + title);
-          console.log("Genre: " + data.Genre);
           console.log("Drink:" + drink.strDrink);
           drinkImgEl.setAttribute("src", drink.strDrinkThumb);
           movieTitleInputEl.value = '';
@@ -84,12 +104,6 @@ let getMovieByTitle = function(event) {
       });
 };
 
-function printRandomDrinks(){
-    genres.forEach(element => {
-        let randomDrink = getRandomDrinkByGenre(element);
-        console.log("Genre: "+ element +" Drink:" + randomDrink.strDrink);
-      });
-}
 //This function will initialize the ordinary drink list
 function init(){
     getOrdinaryDrinks();
@@ -132,14 +146,9 @@ init();
               console.log(data);
               let genre = data.Genre;
               getFirstGenre(genre);
-              let drink = getRandomDrinkByGenre(genre);
-              console.log("Movie:" + title);
-              console.log("Genre: " + data.Genre);
-              console.log("Drink:" + drink.strDrink);
-              drinkImgEl.setAttribute("src", drink.strDrinkThumb);
-              movieTitleInputEl.value = '';
+              let title = data.Title;
+              console.log(title);
               });
-              console.log(data.Genre);
           } else {
               alert('Error: ' + response.statusText);
           }
