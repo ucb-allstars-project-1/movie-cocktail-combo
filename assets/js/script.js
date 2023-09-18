@@ -24,12 +24,10 @@ function getRandomDrinkByGenre(genre){
   return ordinaryDrinksList[drinkIndex];
 }
 
-function getFirstGenre(data){
-
-  let genre = data.Genre.split(',');
-  genre = Array.isArray(genre) ? data.Genre.split(',')[0] : genre;
-
-  return data.Genre.split(',')[0];
+function getFirstGenre(genre){
+console.log(genre);
+console.log(genre.split(',')[0]);
+  return genre.split(',')[0];
 }
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
@@ -67,10 +65,11 @@ let getMovieByTitle = function(event) {
       if (response.ok) {
           response.json().then(function (data) {
 
-          let genre = getFirstGenre(data);
+            let genre = data.Genre
+         getFirstGenre(genre);
           let drink = getRandomDrinkByGenre(genre);
           console.log("Movie:" + title);
-          console.log("Genre: " + genre);
+          console.log("Genre: " + data.Genre);
           console.log("Drink:" + drink.strDrink);
           drinkImgEl.setAttribute("src", drink.strDrinkThumb);
           movieTitleInputEl.value = '';
@@ -103,27 +102,27 @@ init();
 
 // End of the Code By SI
 
-var getDrinks= function () {
-    var apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
+// var getDrinks= function () {
+//     var apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
     
-    fetch(apiUrl)
-        .then(function (response) {
-        if (response.ok) {
-            response.json().then(function (data) {
-            console.log(data);
-            });
-        } else {
-            alert('Error: ' + response.statusText);
-        }
-        })
-        .catch(function (error) {
-        alert('Unable to connect');
-        });
-    };
+//     fetch(apiUrl)
+//         .then(function (response) {
+//         if (response.ok) {
+//             response.json().then(function (data) {
+//             console.log(data);
+//             });
+//         } else {
+//             alert('Error: ' + response.statusText);
+//         }
+//         })
+//         .catch(function (error) {
+//         alert('Unable to connect');
+//         });
+//     };
 
     var getMovies= function () {
 
-      var apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=Teenage Mutant Ninja Turtles";
+      var apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&t=barbie";
 
       
       fetch(apiUrl)
@@ -131,7 +130,16 @@ var getDrinks= function () {
           if (response.ok) {
               response.json().then(function (data) {
               console.log(data);
+              let genre = data.Genre;
+              getFirstGenre(genre);
+              let drink = getRandomDrinkByGenre(genre);
+              console.log("Movie:" + title);
+              console.log("Genre: " + data.Genre);
+              console.log("Drink:" + drink.strDrink);
+              drinkImgEl.setAttribute("src", drink.strDrinkThumb);
+              movieTitleInputEl.value = '';
               });
+              console.log(data.Genre);
           } else {
               alert('Error: ' + response.statusText);
           }
@@ -142,5 +150,5 @@ var getDrinks= function () {
       };
 
 
-getDrinks();
+// getDrinks();
 getMovies();
