@@ -32,6 +32,26 @@ function getFirstGenre(data){
   return data.Genre.split(',')[0];
 }
 
+
+// Reads movies from local storage and returns array of movies objects.
+// Returns an empty array ([]) if there aren't any movies.
+function readSearchedMoviesFromStorage() {
+    var movies = localStorage.getItem('movies');
+    if (movies) {
+      movies = JSON.parse(movies);
+    } else {
+      movies = [];
+    }
+    return movies;
+}
+
+// Takes an array of movies and saves them in localStorage.
+function saveSearchedMoviesToStorage(movies) {
+    localStorage.setItem('movies', JSON.stringify(movies));
+}
+
+
+
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
@@ -66,10 +86,27 @@ let getMovieByTitle = function(event) {
       .then(function (response) {
       if (response.ok) {
           response.json().then(function (data) {
-
+          
+          
+          let movie = {
+            title: data.Title,
+            actors: data.Actors,
+            awards: data.Awards,
+            genre: getFirstGenre(data),
+          };
+        
+            // add the movie to local storage only if it is not already storage
+          let searchedMovies = readSearchedMoviesFromStorage();
+          if (searchedMovies.find((searchedMovie) => searchedMovie.title == movie.title) == undefined){
+            searchedMovies.push(movie);
+            saveSearchedMoviesToStorage(searchedMovies);
+          }
+            
+          console.log(data);
           let genre = getFirstGenre(data);
           let drink = getRandomDrinkByGenre(genre);
           console.log("Movie:" + title);
+          console.log(data);
           console.log("Genre: " + genre);
           console.log("Drink:" + drink.strDrink);
           drinkImgEl.setAttribute("src", drink.strDrinkThumb);
