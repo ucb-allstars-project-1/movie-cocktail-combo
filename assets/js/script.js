@@ -6,6 +6,7 @@ const drinkImgEl = document.querySelector('#drink-img');
 const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
 
 const currentMovie = {};
+const currentDrink = {};
 const similarMovies = [];
 
 let ordinaryDrinksList;
@@ -27,12 +28,7 @@ function getRandomDrinkByGenre(genre) {
   return ordinaryDrinksList[drinkIndex];
 }
 
-function printRandomDrinks() {
-  genres.forEach(element => {
-    let randomDrink = getRandomDrinkByGenre(element);
-    console.log("Genre: " + element + " Drink:" + randomDrink.strDrink);
-  });
-}
+
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
@@ -42,10 +38,7 @@ function getOrdinaryDrinks() {
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data);
           ordinaryDrinksList = data.drinks;
-          //The next line has to be deleted
-          printRandomDrinks();
         })
       } else {
         alert('Error: ' + response.statusText);
@@ -56,81 +49,46 @@ function getOrdinaryDrinks() {
     });
 };
 
-
-function getFirstGenre(data) {
-
-  let genre = data.Genre.split(',');
-  genre = Array.isArray(genre) ? data.Genre.split(',')[0] : genre;
-
-  return data.Genre.split(',')[0];
+function selectDrinkByGenre(){
+  //in case the current does not have a genre, it will select a drink by genres[0]
+  let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
+  let drink = getRandomDrinkByGenre(genre);
+  currentDrink.id = drink.idDrink;
+  currentDrink.name = drink.strDrink;
+  currentDrink.imageUrl = drink.strDrinkThumb;
 }
 
+function showCurrentDrink(){
+  selectDrinkByGenre();
+  drinkImgEl.setAttribute("src", currentDrink.imageUrl);
+}
 
-// Reads movies from local storage and returns array of movies objects.
-// Returns an empty array ([]) if there aren't any movies.
-function readSearchedMoviesFromStorage() {
-  var movies = localStorage.getItem('movies');
-  if (movies) {
-    movies = JSON.parse(movies);
+// Reads drinks from local storage and returns array of drinks objects.
+// Returns an empty array ([]) if there aren't any drinks.
+function readFavoriteDrinksFromStorage() {
+  let favoriteDrinks = localStorage.getItem('favorite-drinks');
+  if (favoriteDrinks) {
+    favoriteDrinks = JSON.parse(favoriteDrinks);
   } else {
-    movies = [];
+    favoriteDrinks = [];
   }
-  return movies;
+  return favoriteDrinks;
 }
 
-// Takes an array of movies and saves them in localStorage.
-function saveSearchedMoviesToStorage(movies) {
-  localStorage.setItem('movies', JSON.stringify(movies));
+// Takes an array of drinks and saves them in localStorage.
+function saveFavoriteDrinksToStorage(favoriteDrinks) {
+  localStorage.setItem('favorite-drinks', JSON.stringify(favoriteDrinks));
 }
 
-
-//This function get a ramdom Drink by the movie title that was input by the user in the form
-let getMovieByTitle = function (event) {
-  event.preventDefault();
-
-  let title = movieTitleInputEl.value.trim();
-
-  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&t=" + title;
-
-  fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-
-
-          let movie = {
-            title: data.Title,
-            actors: data.Actors,
-            awards: data.Awards,
-            genre: getFirstGenre(data),
-          };
-
-          // add the movie to local storage only if it is not already storage
-          let searchedMovies = readSearchedMoviesFromStorage();
-          if (searchedMovies.find((searchedMovie) => searchedMovie.title == movie.title) == undefined) {
-            searchedMovies.push(movie);
-            saveSearchedMoviesToStorage(searchedMovies);
-          }
-
-          console.log(data);
-          let genre = getFirstGenre(data);
-          let drink = getRandomDrinkByGenre(genre);
-          console.log("Movie:" + title);
-          console.log(data);
-          console.log("Genre: " + genre);
-          console.log("Drink:" + drink.strDrink);
-          drinkImgEl.setAttribute("src", drink.strDrinkThumb);
-          movieTitleInputEl.value = '';
-
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect to omdbapi.com');
-    });
-};
+// Add the current drink to the list of favorite drinks if it is not already in
+function saveCurrentDrinkAsFavorite(){
+    // add the movie to local storage only if it is not already storage
+    let favoriteDrinks = readFavoriteDrinksFromStorage();
+    if (favoriteDrinks.find((drink => drink.id == currentDrink.id) == undefined)){
+      favoriteDrinks.push(currentDrink);
+      saveFavoriteDrinksToStorage(favoriteDrinks);
+    }
+}
 
 // End of the Code By SI
 
@@ -210,6 +168,7 @@ function searchMovies(title) {
         movie.year = data.Search[i].Year;
         movie.imdbID = data.Search[i].imdbID;
         similarMovies.push(movie);
+        showCurrentDrink();
       }
       console.log(similarMovies);
     })
@@ -238,7 +197,6 @@ function getMovieResults(event) {
   let title = movieTitleInputEl.value.trim();
 
   searchMovieByTitle(title, "t");
-
 }
 
 // End of code KB
@@ -285,9 +243,9 @@ function init() {
   getOrdinaryDrinks();
 }
 
-movieFormEl.addEventListener('submit', getMovieResults);
+movieFormEl.addEventListener('submit', getMovieResults,showCurrentDrink);
 
-// init();
+init();
 
 // getDrinks();
 // getMovies();
