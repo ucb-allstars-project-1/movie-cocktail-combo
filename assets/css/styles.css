@@ -4,14 +4,6 @@
     background-color: #e6dedd;
 }
 
-.james-bond {
-    flex-direction: right;
-    margin: 10px;
-    border-radius: 50%;
-    max-width: 18%;
-    height: auto;
-}
-
 .app-title {
     display: flex;
     flex-direction: column;
@@ -27,7 +19,15 @@
     color: #c22828;
 }
 
-#drink-img{
+#james-bond {
+    flex-direction: right;
+}
+
+#drink-img {
+    max-height: 445px;
+}
+
+/* #drink-img{
     width: 30em;
     height: 30em;
-}
+} */
