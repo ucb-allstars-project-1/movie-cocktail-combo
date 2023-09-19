@@ -95,10 +95,12 @@ let getMovieByTitle = function(event) {
             genre: getFirstGenre(data),
           };
         
-            // add the movie to local storage
+            // add the movie to local storage only if it is not already storage
           let searchedMovies = readSearchedMoviesFromStorage();
-          searchedMovies.push(movie);
-          saveSearchedMoviesToStorage(searchedMovies);
+          if (searchedMovies.find((searchedMovie) => searchedMovie.title == movie.title) == undefined){
+            searchedMovies.push(movie);
+            saveSearchedMoviesToStorage(searchedMovies);
+          }
             
           console.log(data);
           let genre = getFirstGenre(data);
