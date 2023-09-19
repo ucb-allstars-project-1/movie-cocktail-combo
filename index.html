@@ -7,58 +7,69 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Movies + Cocktails</title>
 </head>
-<body>
+<body class="has-background-dark">
     <header class="header">
         <div class="app-title">
-            <h1 class="title is-1">Movies</h1>
-            <h1 id="and" class="title is-1">&</h1>
-            <h1 class="title is-1">Cocktails</h1>
+            <h1 class="is-size-3 has-text-weight-semibold">Movies</h1>
+            <h1 id="and" class="is-size-3 has-text-weight-semibold">&</h1>
+            <h1 class="is-size-3 has-text-weight-semibold">Cocktails</h1>
         </div>
-        <img class="james-bond" src="assets/images/james-bond-martini.png"></img>
+        <figure class="image is-128x128 is-flex-shrink is-align-self-center">
+            <img id="james-bond" class="is-rounded" src="assets/images/james-bond-martini.png">
+        </figure>
     </header>
-    <main>
+    <main id="main" class="has-text-danger-light">
         <!-- below is the input box and submit button -->
         <div>
-            <form id="movie-form" action="">
-                <div>
-                    <input id="movie-title" type="text" placeholder="Movie title">
-                    <button id="action" type="submit">Action!</button>
+            <form id="movie-form" class="columns m-6 is-justify-content-center" action="">
+                <div class="is-flex control column is-8">
+                    <input id="movie-title" class="input" type="text" placeholder="Movie title">
+                    <!-- <button id="action" class="button is-light" type="submit">Action!</button> -->
+                    <button class="button">
+                        <span class="icon">
+                            <i class="fa-solid fa-clapperboard"></i>
+                        </span>
+                        <span>Action!</span>
+                    </button>
                 </div>
             </form>
         </div>
-        <!-- below is the movie box -->
-        <div class="movie-box">
-            <!-- below is the box for the movie poster -->
-            <div class="movie-poster">
-                <img src="https://m.media-amazon.com/images/M/MV5BMWZiNjE2OWItMTkwNy00ZWQzLWI0NTgtMWE0NjNiYTljN2Q1XkEyXkFqcGdeQXVyNzAwMjYxMzA@._V1_SX300.jpg">
-            </div>
-            <!-- below is the movie information -->
-            <div class="movie-text">
-                <h3 class="title">Skyfall</h3>
-                <p class="genre">Action, Adventure, Thriller</p>
-                <p class="rated">PG-13</p>
-                <p class="director">Sam Mendes</p>
-                <p class="actors">Daniel Craig, Javier Bardem, Naomie Harris</p>
-                <p class="awards">Won 2 Oscars, 69 wins & 123 nominations total</p>
-            </div>
-        </div>
-        <!-- below is the cocktail box -->
-        <div class="cocktail-box">
-            <!-- below is the cocktail photo -->
-            <div class="cocktail-photo">
-                <img id="drink-img" src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
-            </div>
-            <!-- below is the cocktail recipe -->
-            <div class="cocktail-recipe">
-                <h3 class="title">Dirty Martini</h3>
-                <div class="ingredients-measurements">
-                    <p class="ingredients">Vodka, Dry Vermouth, Olive Brine, Lemon, Olive</p>
-                    <p class="measurements">70ml/2fl oz, 1 Tbsp, 2 Tbsp, 1 wedge, 1</p>
+        <div class="columns">
+            <!-- below is the movie box -->
+            <div id="movie-box" class="column is-half">
+                <!-- below is the box for the movie poster -->
+                <div class="movie-poster is-flex is-justify-content-center">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMWZiNjE2OWItMTkwNy00ZWQzLWI0NTgtMWE0NjNiYTljN2Q1XkEyXkFqcGdeQXVyNzAwMjYxMzA@._V1_SX300.jpg">
                 </div>
-                <div class="instructions">
-                    <p>Pour the vodka, dry vermouth and olive brine into a cocktail shaker with a handful of ice and shake well.</p>
-                    <p>Rub the rim of a martini glass with the wedge of lemon.\r\nStrain the contents of the cocktail shaker into the glass and add the olive.</p>
-                    <p>Dirty Martini contains a splash of olive brine or olive juice and is typically garnished with an olive.</p>
+                <!-- below is the movie information -->
+                <div class="movie-text p-6">
+                    <p class="title has-text-danger-light">Skyfall</p>
+                    <p class="genre">Action, Adventure, Thriller</p>
+                    <p class="rated">PG-13</p>
+                    <p class="director">Sam Mendes</p>
+                    <p class="actors">Daniel Craig, Javier Bardem, Naomie Harris</p>
+                    <p class="awards">Won 2 Oscars, 69 wins & 123 nominations total</p>
+                </div>
+            </div>
+            <!-- below is the cocktail box -->
+            <div id="cocktail-box" class="column is-half">
+                <!-- below is the cocktail photo -->
+                <div id="cocktail-photo" class="is-flex is-justify-content-center">
+                    <img id="drink-img" src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
+                </div>
+                <!-- below is the cocktail recipe -->
+                <div class="cocktail-recipe p-6">
+                    <p class="title has-text-danger-light">Dirty Martini</p>
+                    <div class="ingredients-measurements">
+                        <p class="ingredients">Vodka, Dry Vermouth, Olive Brine, Lemon, Olive</p>
+                        <p class="measurements">70ml/2fl oz, 1 Tbsp, 2 Tbsp, 1 wedge, 1</p>
+                    </div>
+                    <div class="instructions">
+                        <p>Pour the vodka, dry vermouth and olive brine into a cocktail shaker with a handful of ice and shake well.</p>
+                        <p>Rub the rim of a martini glass with the wedge of lemon.</p>
+                        <p>Strain the contents of the cocktail shaker into the glass and add the olive.</p>
+                        <p>Dirty Martini contains a splash of olive brine or olive juice and is typically garnished with an olive.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,6 +79,7 @@
     <footer></footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/2c01b6d243.js" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
