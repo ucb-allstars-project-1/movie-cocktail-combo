@@ -287,7 +287,7 @@ function init() {
 
 movieFormEl.addEventListener('submit', getMovieResults);
 
-// init();
+init();
 
-// getDrinks();
-// getMovies();
+getDrinks();
+getMovies();
