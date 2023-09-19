@@ -1,3 +1,7 @@
+main {
+    text-align: center;
+}
+
 .header {
     display: flex;
     justify-content: center;
@@ -26,8 +30,3 @@
 #drink-img {
     max-height: 445px;
 }
-
-/* #drink-img{
-    width: 30em;
-    height: 30em;
-} */

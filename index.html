@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Movies + Cocktails</title>
 </head>
-<body>
+<body class="has-background-dark">
     <header class="header">
         <div class="app-title">
             <h1 class="is-size-3 has-text-weight-semibold">Movies</h1>
@@ -18,12 +18,12 @@
             <img id="james-bond" class="is-rounded" src="assets/images/james-bond-martini.png">
         </figure>
     </header>
-    <main id="main" class="has-background-dark has-text-danger-light">
+    <main id="main" class="has-text-danger-light">
         <!-- below is the input box and submit button -->
         <div>
-            <form id="movie-form" action="">
-                <div>
-                    <input id="movie-title" type="text" placeholder="Movie title">
+            <form id="movie-form" class="columns m-6 is-justify-content-center" action="">
+                <div class="is-flex control column is-8">
+                    <input id="movie-title" class="input" type="text" placeholder="Movie title">
                     <!-- <button id="action" class="button is-light" type="submit">Action!</button> -->
                     <button class="button">
                         <span class="icon">
@@ -38,12 +38,12 @@
             <!-- below is the movie box -->
             <div id="movie-box" class="column is-half">
                 <!-- below is the box for the movie poster -->
-                <div class="movie-poster">
+                <div class="movie-poster is-flex is-justify-content-center">
                     <img src="https://m.media-amazon.com/images/M/MV5BMWZiNjE2OWItMTkwNy00ZWQzLWI0NTgtMWE0NjNiYTljN2Q1XkEyXkFqcGdeQXVyNzAwMjYxMzA@._V1_SX300.jpg">
                 </div>
                 <!-- below is the movie information -->
-                <div class="movie-text">
-                    <h3 class="title has-text-danger-light">Skyfall</h3>
+                <div class="movie-text p-6">
+                    <p class="title has-text-danger-light">Skyfall</p>
                     <p class="genre">Action, Adventure, Thriller</p>
                     <p class="rated">PG-13</p>
                     <p class="director">Sam Mendes</p>
@@ -54,12 +54,12 @@
             <!-- below is the cocktail box -->
             <div id="cocktail-box" class="column is-half">
                 <!-- below is the cocktail photo -->
-                <div class="cocktail-photo">
+                <div id="cocktail-photo" class="is-flex is-justify-content-center">
                     <img id="drink-img" src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
                 </div>
                 <!-- below is the cocktail recipe -->
-                <div class="cocktail-recipe">
-                    <h3 class="title has-text-danger-light">Dirty Martini</h3>
+                <div class="cocktail-recipe p-6">
+                    <p class="title has-text-danger-light">Dirty Martini</p>
                     <div class="ingredients-measurements">
                         <p class="ingredients">Vodka, Dry Vermouth, Olive Brine, Lemon, Olive</p>
                         <p class="measurements">70ml/2fl oz, 1 Tbsp, 2 Tbsp, 1 wedge, 1</p>
