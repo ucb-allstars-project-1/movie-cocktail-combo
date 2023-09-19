@@ -6,6 +6,7 @@ const drinkImgEl = document.querySelector('#drink-img');
 const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
 
 const currentMovie = {};
+const similarMovies = [];
 
 let ordinaryDrinksList;
 
@@ -144,9 +145,9 @@ function cleanInput() {
   }
 }
 
-function searchMovieByTitle(title) {
+function searchMovieByTitle(title, param) {
 
-  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&t=" + title;
+  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&" + param + "=" + title;
 
   fetch(apiUrl)
     .then(function(response) {
@@ -170,10 +171,12 @@ function searchMovieByTitle(title) {
       currentMovie.rated = data.Rated;
       currentMovie.boxOffice = data.BoxOffice;
       currentMovie.imdbRating = data.imdbRating;
+      currentMovie.imdbID = data.imdbID;
       currentMovie.plot = data.Plot;
       currentMovie.genre = data.Genre.split(",");
       cleanInput();
       console.log(currentMovie);
+      searchMovies(title);
     })
     .catch(function(err) {
       console.log(err);
@@ -196,11 +199,37 @@ function searchMovies(title) {
       if (data.Response==="False") {
         throw new Error("No similar movies, invalid movie.");
       }
-      console.log(data);
+      // console.log(data);
+      for(let i=0; i<data.Search.length; i++) {
+        if(data.Search[i].imdbID === currentMovie.imdbID) {
+          continue;
+        }
+        const movie = {};
+        movie.poster = data.Search[i].Poster;
+        movie.title = data.Search[i].Title;
+        movie.year = data.Search[i].Year;
+        movie.imdbID = data.Search[i].imdbID;
+        similarMovies.push(movie);
+      }
+      console.log(similarMovies);
     })
     .catch(function(err) {
       console.log(err);
     });
+}
+
+function showCurrentPoster() {
+  
+
+}
+
+function showSimilarPosters() {
+
+}
+
+function showPosters() {
+  showCurrentPoster();
+  showSimilarPosters();
 }
 
 function getMovieResults(event) {
@@ -208,8 +237,7 @@ function getMovieResults(event) {
 
   let title = movieTitleInputEl.value.trim();
 
-  searchMovieByTitle(title);
-  searchMovies(title);
+  searchMovieByTitle(title, "t");
 
 }
 
@@ -257,7 +285,7 @@ function init() {
   getOrdinaryDrinks();
 }
 
-movieFormEl.addEventListener('submit', searchMovieByTitle);
+movieFormEl.addEventListener('submit', getMovieResults);
 
 // init();
 
