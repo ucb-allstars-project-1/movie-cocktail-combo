@@ -5,6 +5,8 @@ const movieFormEl = document.querySelector('#movie-form');
 const drinkImgEl = document.querySelector('#drink-img');
 const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
 
+const currentMovie = {};
+
 let ordinaryDrinksList;
 
 //Return a number between min and max-1
@@ -131,6 +133,88 @@ let getMovieByTitle = function (event) {
 
 // End of the Code By SI
 
+// Start of code KB
+
+function cleanInput() {
+  for(let i=0; i<currentMovie.actors.length; i++) {
+    currentMovie.actors[i] = currentMovie.actors[i].trim();
+  }
+  for(let i=0; i<currentMovie.genre.length; i++) {
+    currentMovie.genre[i] = currentMovie.genre[i].trim();
+  }
+}
+
+function searchMovieByTitle(title) {
+
+  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&t=" + title;
+
+  fetch(apiUrl)
+    .then(function(response) {
+      if (response.status !== 200) {
+        throw new Error('Forecast Weather status is not 200 OK');
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      if (data.Response==="False") {
+        throw new Error("Not a valid movie")
+      }
+      // console.log(data);
+      currentMovie.actors = data.Actors.split(",");
+      currentMovie.awards = data.Awards;
+      currentMovie.poster = data.Poster;
+      currentMovie.director = data.Director;
+      currentMovie.year = data.Year;
+      currentMovie.title = data.Title;
+      currentMovie.runtime = data.Runtime;
+      currentMovie.rated = data.Rated;
+      currentMovie.boxOffice = data.BoxOffice;
+      currentMovie.imdbRating = data.imdbRating;
+      currentMovie.plot = data.Plot;
+      currentMovie.genre = data.Genre.split(",");
+      cleanInput();
+      console.log(currentMovie);
+    })
+    .catch(function(err) {
+      console.log(err);
+      console.log("This is when you show the error modal.");
+    });
+}
+
+function searchMovies(title) {
+
+  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=" + title;
+
+  fetch(apiUrl)
+    .then(function(response) {
+      if (response.status !== 200) {
+        throw new Error('Forecast Weather status is not 200 OK');
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      if (data.Response==="False") {
+        throw new Error("No similar movies, invalid movie.");
+      }
+      console.log(data);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+}
+
+function getMovieResults(event) {
+  event.preventDefault();
+
+  let title = movieTitleInputEl.value.trim();
+
+  searchMovieByTitle(title);
+  searchMovies(title);
+
+}
+
+// End of code KB
+
 let getDrinks = function () {
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
 
@@ -173,9 +257,9 @@ function init() {
   getOrdinaryDrinks();
 }
 
-movieFormEl.addEventListener('submit', getMovieByTitle);
+movieFormEl.addEventListener('submit', searchMovieByTitle);
 
-init();
+// init();
 
-getDrinks();
-getMovies();
+// getDrinks();
+// getMovies();
