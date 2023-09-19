@@ -247,5 +247,5 @@ movieFormEl.addEventListener('submit', getMovieResults,showCurrentDrink);
 
 init();
 
-// getDrinks();
-// getMovies();
+getDrinks();
+getMovies();
