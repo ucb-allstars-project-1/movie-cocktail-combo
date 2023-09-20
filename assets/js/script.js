@@ -166,6 +166,7 @@ function searchMovieByTitle(title, param) {
       currentMovie.genre = data.Genre.split(",");
       cleanInput();
       console.log(currentMovie);
+      selectDrinkByGenre();
       searchMovies(title);
     })
     .catch(function(err) {
@@ -200,7 +201,6 @@ function searchMovies(title) {
         movie.year = data.Search[i].Year;
         movie.imdbID = data.Search[i].imdbID;
         similarMovies.push(movie);
-        selectDrinkByGenre();
       }
       console.log(similarMovies);
     })
