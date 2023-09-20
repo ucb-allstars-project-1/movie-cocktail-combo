@@ -167,7 +167,6 @@ function searchMovieByTitle(title, param) {
       cleanInput();
       console.log(currentMovie);
       searchMovies(title);
-      selectDrinkByGenre();
     })
     .catch(function(err) {
       console.log(err);
@@ -201,6 +200,7 @@ function searchMovies(title) {
         movie.year = data.Search[i].Year;
         movie.imdbID = data.Search[i].imdbID;
         similarMovies.push(movie);
+        selectDrinkByGenre();
       }
       console.log(similarMovies);
     })
@@ -223,9 +223,7 @@ function showPosters() {
   showSimilarPosters();
 }
 
-function getMovieResults(event) {
-  event.preventDefault();
-
+function getMovieResults() {
   let title = movieTitleInputEl.value.trim();
 
   searchMovieByTitle(title, "t");
@@ -275,7 +273,13 @@ function init() {
   getOrdinaryDrinks();
 }
 
-movieFormEl.addEventListener('submit', getMovieResults);
+
+
+movieFormEl.addEventListener('submit', function (event){ 
+  event.preventDefault();
+  getMovieResults();
+  //selectDrinkByGenre();
+});
 
 init();
 
