@@ -43,11 +43,14 @@ The following image shows the web application's appearance and functionality:
 
 ## Credits
 
-To develop this website, We used the following tutorials:  
+To develop this website, We used the following tutorials and libraries:  
     - OMDB API : https://www.omdbapi.com/     
     - CocktailDB API: https://www.thecocktaildb.com/api.php                           
     - Bulma: https://bulma.io/  
-    - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch        
+    - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch
+    - Font Awesome:  https://fontawesome.com/   
+    - Create Modal Through JavaScript:  https://medium.com/@clergemarvin/how-to-create-a-modal-in-javascript-e9ddbff9869c
+      
 
 ## License
 
