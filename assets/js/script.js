@@ -54,6 +54,7 @@ function getOrdinaryDrinks() {
       });
 }
 
+// Creates a new string with all the ingredients
 function concatIngredients(drink){
   let ingredients = '';
   for (i=1; i<15; i++){
@@ -63,6 +64,7 @@ function concatIngredients(drink){
   return ingredients;
 }
 
+// Creates a new string with all the Measures
 function concatMeasures(drink){
   let measures = '';
   for (i=1; i<=15 ; i++){
@@ -72,6 +74,7 @@ function concatMeasures(drink){
   return measures;
 }
 
+// Made a request to select a drink by id
 function searchDrinkById(drinkId){
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId;
 
@@ -98,13 +101,15 @@ function searchDrinkById(drinkId){
       });
 }
 
+// Select a drink randomly by Genre
 function selectDrinkByGenre(){
-  //in case the current does not have a genre, it will select a drink by genres[0]
+  //in case the current movie does not have a genre, it will select a drink by genres[0]
   let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
   let drink = getRandomDrinkByGenre(genre);
   searchDrinkById(drink.idDrink);
 }
 
+// Display the current drink on the page
 function showCurrentDrink(){
   drinkNameEl.textContent = currentDrink.name;
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
@@ -296,7 +301,6 @@ function init() {
 movieFormEl.addEventListener('submit', function (event){ 
   event.preventDefault();
   getMovieResults();
-  //selectDrinkByGenre();
 });
 
 init();
