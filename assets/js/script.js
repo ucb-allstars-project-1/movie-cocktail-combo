@@ -117,32 +117,45 @@ function showCurrentDrink(){
   drinkMeasurementsEl.textContent = 'Measures: ' + currentDrink.measurements;
 }
 
-// Reads drinks from local storage and returns array of drinks objects.
-// Returns an empty array ([]) if there aren't any drinks.
-function readFavoriteDrinksFromStorage() {
-  let favoriteDrinks = localStorage.getItem('favorite-drinks');
-  if (favoriteDrinks) {
-    favoriteDrinks = JSON.parse(favoriteDrinks);
-  } else {
-    favoriteDrinks = [];
+// End of the Code By SI
+
+//Start of code by Maddie
+
+function saveCurrentDrink() {
+  let currentDrink = document.getElementById("drink-name").textContent;
+  //console.log(currentDrink);
+  
+  const existingDrinks = JSON.parse(localStorage.getItem("storeDrinks")) || [];
+  existingDrinks.push(currentDrink);
+
+  localStorage.setItem("storeDrinks", JSON.stringify(existingDrinks));
+}
+
+function setFavoriteDrinks() {
+  const drinkStorage = document.getElementById("favorite-cocktails");
+  drinkStorage.innerHTML = "";
+  const drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
+
+  for (let i = 0; i < drinkHistory.length; i++) {
+    let savedDrinks = document.createElement("a");
+    savedDrinks.textContent = drinkHistory[i];
+
+    let drinkTitle = savedDrinks.textContent;
+    //console.log(drinkTitle);
+
+    drinkStorage.appendChild(savedDrinks);
   }
-  return favoriteDrinks;
 }
 
-// Takes an array of drinks and saves them in localStorage.
-function saveFavoriteDrinksToStorage(favoriteDrinks) {
-  localStorage.setItem('favorite-drinks', JSON.stringify(favoriteDrinks));
-}
+const checkBox = document.getElementById("checkbox");
+checkBox.addEventListener("click", function(event) {
+  event.preventDefault();
+  saveCurrentDrink();
+  setFavoriteDrinks();
+})
 
-// Add the current drink to the list of favorite drinks if it is not already in
-function saveCurrentDrinkAsFavorite(){
-    // add the movie to local storage only if it is not already storage
-    let favoriteDrinks = readFavoriteDrinksFromStorage();
-    if (favoriteDrinks.find((drink => drink.id == currentDrink.id) == undefined)){
-      favoriteDrinks.push(currentDrink);
-      saveFavoriteDrinksToStorage(favoriteDrinks);
-    }
-}
+// End of code by Maddie
+
 
 // Start of code KB
 
