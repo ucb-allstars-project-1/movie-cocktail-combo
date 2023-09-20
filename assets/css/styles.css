@@ -35,10 +35,10 @@ input {
     accent-color: #e6dedd;
 }
 
-#checkbox a {
+#check-here a {
     color: white;
 }
 
-#checkbox a:hover {
+#check-here a:hover {
     color: #8a0f0f
 }
