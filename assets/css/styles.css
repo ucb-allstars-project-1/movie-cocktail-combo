@@ -31,14 +31,14 @@ main {
     max-height: 445px;
 }
 
-input:active {
-    background-color: #8a0f0f;
+input {
+    accent-color: #e6dedd;
 }
 
-.checkbox a {
+#checkbox a {
     color: white;
 }
 
-.checkbox a:hover {
+#checkbox a:hover {
     color: #8a0f0f
 }
