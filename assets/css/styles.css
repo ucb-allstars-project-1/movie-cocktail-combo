@@ -30,3 +30,15 @@ main {
 #drink-img {
     max-height: 445px;
 }
+
+input:active {
+    background-color: #8a0f0f;
+}
+
+.checkbox a {
+    color: white;
+}
+
+.checkbox a:hover {
+    color: #8a0f0f
+}
