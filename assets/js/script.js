@@ -5,6 +5,8 @@ const movieFormEl = document.querySelector('#movie-form');
 const drinkNameEl = document.querySelector('#drink-name');
 const drinkImgEl = document.querySelector('#drink-img');
 const drinkInstructionsEl = document.querySelector('#drink-instructions');
+const drinkIngredientsEl = document.querySelector('#drink-ingredients');
+const drinkMeasurementsEl = document.querySelector('#drink-measurements');
 const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
 
 const currentMovie = {};
@@ -60,11 +62,13 @@ function searchDrinkById(drinkId){
       if (response.ok) {
           response.json().then(function (data) {
             let drink = data.drinks[0];
+            console.log(drink);
             currentDrink.id = drink.idDrink;
             currentDrink.name = drink.strDrink;
             currentDrink.imageUrl = drink.strDrinkThumb;
             currentDrink.instructions = drink.strInstructions;
-            console.log(drink);
+            currentDrink.ingredients = drink.strIngredient1;
+            currentDrink.measurements = drink.strMeasure1;
             showCurrentDrink();
           })
       } else {
@@ -78,7 +82,6 @@ function searchDrinkById(drinkId){
 
 function selectDrinkByGenre(){
   //in case the current does not have a genre, it will select a drink by genres[0]
-  console.log("Genre: " + currentMovie.genre[0])
   let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
   let drink = getRandomDrinkByGenre(genre);
   searchDrinkById(drink.idDrink);
@@ -88,6 +91,8 @@ function showCurrentDrink(){
   drinkNameEl.textContent = currentDrink.name;
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
   drinkInstructionsEl.textContent = currentDrink.instructions;
+  drinkIngredientsEl.textContent = currentDrink.ingredients;
+  drinkMeasurementsEl.textContent = currentDrink.measurements;
 }
 
 // Reads drinks from local storage and returns array of drinks objects.
@@ -162,6 +167,7 @@ function searchMovieByTitle(title, param) {
       cleanInput();
       console.log(currentMovie);
       searchMovies(title);
+      selectDrinkByGenre();
     })
     .catch(function(err) {
       console.log(err);
