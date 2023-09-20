@@ -2,7 +2,9 @@
 
 const movieTitleInputEl = document.querySelector('#movie-title');
 const movieFormEl = document.querySelector('#movie-form');
+const drinkNameEl = document.querySelector('#drink-name');
 const drinkImgEl = document.querySelector('#drink-img');
+const drinkInstructionsEl = document.querySelector('#drink-instructions');
 const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
 
 const currentMovie = {};
@@ -33,34 +35,59 @@ function getRandomDrinkByGenre(genre) {
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
-
+  
   fetch(apiUrl)
-    .then(function (response) {
+      .then(function (response) {
       if (response.ok) {
-        response.json().then(function (data) {
+          response.json().then(function (data) {
+          console.log(data);
           ordinaryDrinksList = data.drinks;
         })
       } else {
-        alert('Error: ' + response.statusText);
+          alert('Error: ' + response.statusText);
       }
-    })
-    .catch(function (error) {
+      })
+      .catch(function (error) {
       alert('Unable to connect to the Cocktaildb.com');
-    });
-};
+      });
+}
+
+function searchDrinkById(drinkId){
+  let apiUrl = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId;
+
+  fetch(apiUrl)
+      .then(function (response) {
+      if (response.ok) {
+          response.json().then(function (data) {
+            let drink = data.drinks[0];
+            currentDrink.id = drink.idDrink;
+            currentDrink.name = drink.strDrink;
+            currentDrink.imageUrl = drink.strDrinkThumb;
+            currentDrink.instructions = drink.strInstructions;
+            console.log(drink);
+            showCurrentDrink();
+          })
+      } else {
+          alert('Error: ' + response.statusText);
+      }
+      })
+      .catch(function (error) {
+          alert('Unable to connect to the Cocktaildb.com');
+      });
+}
 
 function selectDrinkByGenre(){
   //in case the current does not have a genre, it will select a drink by genres[0]
+  console.log("Genre: " + currentMovie.genre[0])
   let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
   let drink = getRandomDrinkByGenre(genre);
-  currentDrink.id = drink.idDrink;
-  currentDrink.name = drink.strDrink;
-  currentDrink.imageUrl = drink.strDrinkThumb;
+  searchDrinkById(drink.idDrink);
 }
 
 function showCurrentDrink(){
-  selectDrinkByGenre();
+  drinkNameEl.textContent = currentDrink.name;
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
+  drinkInstructionsEl.textContent = currentDrink.instructions;
 }
 
 // Reads drinks from local storage and returns array of drinks objects.
@@ -168,7 +195,6 @@ function searchMovies(title) {
         movie.year = data.Search[i].Year;
         movie.imdbID = data.Search[i].imdbID;
         similarMovies.push(movie);
-        showCurrentDrink();
       }
       console.log(similarMovies);
     })
@@ -243,9 +269,9 @@ function init() {
   getOrdinaryDrinks();
 }
 
-movieFormEl.addEventListener('submit', getMovieResults,showCurrentDrink);
+movieFormEl.addEventListener('submit', getMovieResults);
 
 init();
 
-getDrinks();
-getMovies();
+//getDrinks();
+//getMovies();
