@@ -54,6 +54,24 @@ function getOrdinaryDrinks() {
       });
 }
 
+function concatIngredients(drink){
+  let ingredients = '';
+  for (i=1; i<15; i++){
+    let ingredient = drink[`strIngredient${i}`];
+    ingredients = (ingredient !== null) ? ingredients + " " + ingredient : ingredients;
+  }
+  return ingredients;
+}
+
+function concatMeasures(drink){
+  let measures = '';
+  for (i=1; i<=15 ; i++){
+    let measure = drink[`strMeasure${i}`];
+    measures = (measure !== null) ? measures + " " + measure : measures;
+  }
+  return measures;
+}
+
 function searchDrinkById(drinkId){
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId;
 
@@ -67,8 +85,8 @@ function searchDrinkById(drinkId){
             currentDrink.name = drink.strDrink;
             currentDrink.imageUrl = drink.strDrinkThumb;
             currentDrink.instructions = drink.strInstructions;
-            currentDrink.ingredients = drink.strIngredient1;
-            currentDrink.measurements = drink.strMeasure1;
+            currentDrink.ingredients = concatIngredients(drink);
+            currentDrink.measurements = concatMeasures(drink);
             showCurrentDrink();
           })
       } else {
@@ -91,8 +109,8 @@ function showCurrentDrink(){
   drinkNameEl.textContent = currentDrink.name;
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
   drinkInstructionsEl.textContent = currentDrink.instructions;
-  drinkIngredientsEl.textContent = currentDrink.ingredients;
-  drinkMeasurementsEl.textContent = currentDrink.measurements;
+  drinkIngredientsEl.textContent = 'Ingredients: ' + currentDrink.ingredients;
+  drinkMeasurementsEl.textContent = 'Measures: ' + currentDrink.measurements;
 }
 
 // Reads drinks from local storage and returns array of drinks objects.
