@@ -30,3 +30,15 @@ main {
 #drink-img {
     max-height: 445px;
 }
+
+input {
+    accent-color: #e6dedd;
+}
+
+#check-here a {
+    color: white;
+}
+
+#check-here a:hover {
+    color: #8a0f0f
+}

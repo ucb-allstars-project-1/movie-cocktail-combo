@@ -44,11 +44,11 @@
                 <!-- below is the movie information -->
                 <div class="movie-text p-6">
                     <p class="title has-text-danger-light">Skyfall</p>
-                    <p class="genre">Action, Adventure, Thriller</p>
-                    <p class="rated">PG-13</p>
-                    <p class="director">Sam Mendes</p>
-                    <p class="actors">Daniel Craig, Javier Bardem, Naomie Harris</p>
-                    <p class="awards">Won 2 Oscars, 69 wins & 123 nominations total</p>
+                    <p class="genre pt-4">Genre: Action, Adventure, Thriller</p>
+                    <p class="rated pt-4">Rated: PG-13</p>
+                    <p class="director pt-4">Director: Sam Mendes</p>
+                    <p class="actors pt-4">Actors: Daniel Craig, Javier Bardem, Naomie Harris</p>
+                    <p class="awards pt-4">Awards: Won 2 Oscars, 69 wins & 123 nominations total</p>
                 </div>
             </div>
             <!-- below is the cocktail box -->
@@ -59,12 +59,19 @@
                 </div>
                 <!-- below is the cocktail recipe -->
                 <div class="cocktail-recipe p-6">
-                    <p class="title has-text-danger-light">Dirty Martini</p>
-                    <div class="ingredients-measurements">
-                        <p class="ingredients">Vodka, Dry Vermouth, Olive Brine, Lemon, Olive</p>
-                        <p class="measurements">70ml/2fl oz, 1 Tbsp, 2 Tbsp, 1 wedge, 1</p>
+                    <div class="is-flex is-justify-content-center">
+                        <p id="drink-title" class="title has-text-danger-light pr-3">Dirty Martini</p>
+                        <label id="check-here">
+                            <input id="checkbox" type="checkbox">
+                            <i class="fa-solid fa-star fa-beat" style="color: #8a0f0f;"></i>
+                            <a href="#favorite-cocktails">Favorite</a>
+                        </label>
                     </div>
-                    <div class="instructions">
+                    <div id="ingredients-measurements">
+                        <p id="ingredients">Ingredients: 70ml Vodka, 1 Tbsp Dry Vermouth, 2 Tbsp Olive Brine, 1 Lemon Wedge, 1 Olive</p>
+                        <p id="measurements"></p>
+                    </div>
+                    <div class="instructions pt-4">
                         <p>Pour the vodka, dry vermouth and olive brine into a cocktail shaker with a handful of ice and shake well.</p>
                         <p>Rub the rim of a martini glass with the wedge of lemon.</p>
                         <p>Strain the contents of the cocktail shaker into the glass and add the olive.</p>
@@ -74,7 +81,7 @@
             </div>
         </div>
         <!-- below is the saved cocktail box -->
-        <div class="favorite-cocktails"></div>
+        <div id="favorite-cocktails"></div>
     </main>
     <footer></footer>
 
