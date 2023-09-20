@@ -1,22 +1,18 @@
+main {
+    text-align: center;
+}
+
 .header {
     display: flex;
     justify-content: center;
     background-color: #e6dedd;
 }
 
-.james-bond {
-    flex-direction: right;
-    margin: 10px;
-    border-radius: 50%;
-    max-width: 18%;
-    height: auto;
-}
-
 .app-title {
     display: flex;
     flex-direction: column;
     text-align: right;
-    margin: 25px;
+    margin: 20px;
 }
 
 .app-title h1 {
@@ -27,7 +23,10 @@
     color: #c22828;
 }
 
-#drink-img{
-    width: 30em;
-    height: 30em;
+#james-bond {
+    flex-direction: right;
+}
+
+#drink-img {
+    max-height: 445px;
 }
