@@ -120,6 +120,30 @@ function showCurrentDrink(){
 // End of the Code By SI
 
 //Start of code by Maddie
+function removeRecipeModal() {
+  const modal = document.querySelector('.modal-css');
+  if (modal) {
+    modal.remove()
+  }
+}
+
+function displayRecipeModal(element) {
+  let modalDiv = document.createElement('div');
+  modalDiv.classList.add('modal-css');
+
+  let modalDivChild = document.createElement('div');
+  modalDivChild.classList.add('modal-content-css');
+  modalDivChild.innerHTML = element;
+
+  modalDiv.appendChild(modalDivChild);
+  document.body.appendChild(modalDiv);
+
+  modalDiv.addEventListener('click', event => {
+    if (event.target.className === 'modal-css') {
+      removeRecipeModal()
+    }
+  })
+}
 
 function saveCurrentDrink() {
   let currentDrink = document.getElementById("drink-name").textContent;
@@ -143,7 +167,7 @@ function setFavoriteDrinks() {
     savedDrinks.addEventListener('click', function() {
       console.log('clicked', this);
 
-      //call function here for displaying modal and fetching data
+      displayRecipeModal();
     })
 
     let drinkTitle = savedDrinks.textContent;
