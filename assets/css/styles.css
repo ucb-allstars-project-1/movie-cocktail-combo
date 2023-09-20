@@ -43,6 +43,14 @@ input {
     color: #8a0f0f
 }
 
+#favorites-box {
+    background-color: #e6dedd;
+}
+
 #favorite-cocktails {
     background-color: #e6dedd;
+}
+
+#favorite-cocktails a {
+    display: block;
 }

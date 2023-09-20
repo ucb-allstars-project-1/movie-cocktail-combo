@@ -82,9 +82,13 @@
             </div>
         </div>
         <!-- below is the saved cocktail box -->
-        <div class="box m-6">
-            <p id="favorites-title" class="title has-text-dark p-6">Cocktail Favorites</p>
-            <div id="favorite-cocktails" class="column has-background-light"></div>
+        <div id="favorites-box" class="box m-6 is-flex columns">
+            <div class="column">
+                <p id="favorites-title" class="title has-text-dark p-6">Cocktail Favorites</p>
+                <div class="columns is-mobile">
+                    <div id="favorite-cocktails" class="column is-half is-offset-3"></div>
+                </div>
+            </div>
         </div>
     </main>
     <footer>

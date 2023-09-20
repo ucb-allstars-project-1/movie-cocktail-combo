@@ -101,7 +101,7 @@ function showCurrentDrink(){
 
 function saveCurrentDrink() {
   let currentDrink = document.getElementById("drink-name").textContent;
-  console.log(currentDrink);
+  //console.log(currentDrink);
   
   const existingDrinks = JSON.parse(localStorage.getItem("storeDrinks")) || [];
   existingDrinks.push(currentDrink);
@@ -119,7 +119,7 @@ function setFavoriteDrinks() {
     savedDrinks.textContent = drinkHistory[i];
 
     let drinkTitle = savedDrinks.textContent;
-    console.log(drinkTitle);
+    //console.log(drinkTitle);
 
     drinkStorage.appendChild(savedDrinks);
   }
