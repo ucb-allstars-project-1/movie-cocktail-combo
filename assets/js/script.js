@@ -2,10 +2,15 @@
 
 const movieTitleInputEl = document.querySelector('#movie-title');
 const movieFormEl = document.querySelector('#movie-form');
+const drinkNameEl = document.querySelector('#drink-name');
 const drinkImgEl = document.querySelector('#drink-img');
+const drinkInstructionsEl = document.querySelector('#drink-instructions');
+const drinkIngredientsEl = document.querySelector('#drink-ingredients');
+const drinkMeasurementsEl = document.querySelector('#drink-measurements');
 const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
 
 const currentMovie = {};
+const currentDrink = {};
 const similarMovies = [];
 
 let ordinaryDrinksList;
@@ -27,110 +32,95 @@ function getRandomDrinkByGenre(genre) {
   return ordinaryDrinksList[drinkIndex];
 }
 
-function printRandomDrinks() {
-  genres.forEach(element => {
-    let randomDrink = getRandomDrinkByGenre(element);
-    console.log("Genre: " + element + " Drink:" + randomDrink.strDrink);
-  });
-}
+
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink";
-
+  
   fetch(apiUrl)
-    .then(function (response) {
+      .then(function (response) {
       if (response.ok) {
-        response.json().then(function (data) {
+          response.json().then(function (data) {
           console.log(data);
           ordinaryDrinksList = data.drinks;
-          //The next line has to be deleted
-          printRandomDrinks();
         })
       } else {
-        alert('Error: ' + response.statusText);
+          alert('Error: ' + response.statusText);
       }
-    })
-    .catch(function (error) {
+      })
+      .catch(function (error) {
       alert('Unable to connect to the Cocktaildb.com');
-    });
-};
-
-
-function getFirstGenre(data) {
-
-  let genre = data.Genre.split(',');
-  genre = Array.isArray(genre) ? data.Genre.split(',')[0] : genre;
-
-  return data.Genre.split(',')[0];
+      });
 }
 
-
-// Reads movies from local storage and returns array of movies objects.
-// Returns an empty array ([]) if there aren't any movies.
-function readSearchedMoviesFromStorage() {
-  var movies = localStorage.getItem('movies');
-  if (movies) {
-    movies = JSON.parse(movies);
-  } else {
-    movies = [];
-  }
-  return movies;
-}
-
-// Takes an array of movies and saves them in localStorage.
-function saveSearchedMoviesToStorage(movies) {
-  localStorage.setItem('movies', JSON.stringify(movies));
-}
-
-
-//This function get a ramdom Drink by the movie title that was input by the user in the form
-let getMovieByTitle = function (event) {
-  event.preventDefault();
-
-  let title = movieTitleInputEl.value.trim();
-
-  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&t=" + title;
+function searchDrinkById(drinkId){
+  let apiUrl = "https://thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId;
 
   fetch(apiUrl)
-    .then(function (response) {
+      .then(function (response) {
       if (response.ok) {
-        response.json().then(function (data) {
-
-
-          let movie = {
-            title: data.Title,
-            actors: data.Actors,
-            awards: data.Awards,
-            genre: getFirstGenre(data),
-          };
-
-          // add the movie to local storage only if it is not already storage
-          let searchedMovies = readSearchedMoviesFromStorage();
-          if (searchedMovies.find((searchedMovie) => searchedMovie.title == movie.title) == undefined) {
-            searchedMovies.push(movie);
-            saveSearchedMoviesToStorage(searchedMovies);
-          }
-
-          console.log(data);
-          let genre = getFirstGenre(data);
-          let drink = getRandomDrinkByGenre(genre);
-          console.log("Movie:" + title);
-          console.log(data);
-          console.log("Genre: " + genre);
-          console.log("Drink:" + drink.strDrink);
-          drinkImgEl.setAttribute("src", drink.strDrinkThumb);
-          movieTitleInputEl.value = '';
-
-        });
+          response.json().then(function (data) {
+            let drink = data.drinks[0];
+            console.log(drink);
+            currentDrink.id = drink.idDrink;
+            currentDrink.name = drink.strDrink;
+            currentDrink.imageUrl = drink.strDrinkThumb;
+            currentDrink.instructions = drink.strInstructions;
+            currentDrink.ingredients = drink.strIngredient1;
+            currentDrink.measurements = drink.strMeasure1;
+            showCurrentDrink();
+          })
       } else {
-        alert('Error: ' + response.statusText);
+          alert('Error: ' + response.statusText);
       }
-    })
-    .catch(function (error) {
-      alert('Unable to connect to omdbapi.com');
-    });
-};
+      })
+      .catch(function (error) {
+          alert('Unable to connect to the Cocktaildb.com');
+      });
+}
+
+function selectDrinkByGenre(){
+  //in case the current does not have a genre, it will select a drink by genres[0]
+  let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
+  let drink = getRandomDrinkByGenre(genre);
+  searchDrinkById(drink.idDrink);
+}
+
+function showCurrentDrink(){
+  drinkNameEl.textContent = currentDrink.name;
+  drinkImgEl.setAttribute("src", currentDrink.imageUrl);
+  drinkInstructionsEl.textContent = currentDrink.instructions;
+  drinkIngredientsEl.textContent = currentDrink.ingredients;
+  drinkMeasurementsEl.textContent = currentDrink.measurements;
+}
+
+// Reads drinks from local storage and returns array of drinks objects.
+// Returns an empty array ([]) if there aren't any drinks.
+function readFavoriteDrinksFromStorage() {
+  let favoriteDrinks = localStorage.getItem('favorite-drinks');
+  if (favoriteDrinks) {
+    favoriteDrinks = JSON.parse(favoriteDrinks);
+  } else {
+    favoriteDrinks = [];
+  }
+  return favoriteDrinks;
+}
+
+// Takes an array of drinks and saves them in localStorage.
+function saveFavoriteDrinksToStorage(favoriteDrinks) {
+  localStorage.setItem('favorite-drinks', JSON.stringify(favoriteDrinks));
+}
+
+// Add the current drink to the list of favorite drinks if it is not already in
+function saveCurrentDrinkAsFavorite(){
+    // add the movie to local storage only if it is not already storage
+    let favoriteDrinks = readFavoriteDrinksFromStorage();
+    if (favoriteDrinks.find((drink => drink.id == currentDrink.id) == undefined)){
+      favoriteDrinks.push(currentDrink);
+      saveFavoriteDrinksToStorage(favoriteDrinks);
+    }
+}
 
 // End of the Code By SI
 
@@ -176,6 +166,7 @@ function searchMovieByTitle(title, param) {
       currentMovie.genre = data.Genre.split(",");
       cleanInput();
       console.log(currentMovie);
+      selectDrinkByGenre();
       searchMovies(title);
     })
     .catch(function(err) {
@@ -232,13 +223,10 @@ function showPosters() {
   showSimilarPosters();
 }
 
-function getMovieResults(event) {
-  event.preventDefault();
-
+function getMovieResults() {
   let title = movieTitleInputEl.value.trim();
 
   searchMovieByTitle(title, "t");
-
 }
 
 // End of code KB
@@ -285,9 +273,15 @@ function init() {
   getOrdinaryDrinks();
 }
 
-movieFormEl.addEventListener('submit', getMovieResults);
+
+
+movieFormEl.addEventListener('submit', function (event){ 
+  event.preventDefault();
+  getMovieResults();
+  //selectDrinkByGenre();
+});
 
 init();
 
-getDrinks();
-getMovies();
+//getDrinks();
+//getMovies();
