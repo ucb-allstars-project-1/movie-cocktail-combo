@@ -174,7 +174,7 @@ function searchMovieByTitle(title, param) {
         throw new Error("Not a valid movie")
       }
       // console.log(data);
-      currentMovie.actors = data.Actors.split(",");
+      currentMovie.actors = data.Actors;
       currentMovie.awards = data.Awards;
       currentMovie.poster = data.Poster;
       currentMovie.director = data.Director;
@@ -186,11 +186,12 @@ function searchMovieByTitle(title, param) {
       currentMovie.imdbRating = data.imdbRating;
       currentMovie.imdbID = data.imdbID;
       currentMovie.plot = data.Plot;
-      currentMovie.genre = data.Genre.split(",");
+      currentMovie.genre = data.Genre;
       cleanInput();
       console.log(currentMovie);
       selectDrinkByGenre();
       searchMovies(title);
+      showCurrentPoster();
     })
     .catch(function(err) {
       console.log(err);
@@ -233,8 +234,13 @@ function searchMovies(title) {
 }
 
 function showCurrentPoster() {
-  
-
+  $("#movie-photo").attr("src", currentMovie.poster);
+  $("#movie-title-text").text(currentMovie.title);
+  $("#movie-genre").text("Genre: " + currentMovie.genre);
+  $("#movie-rated").text("Rated: " + currentMovie.rated);
+  $("#movie-director").text("Director: " + currentMovie.director);
+  $("#movie-actors").text("Actors: " + currentMovie.actors);
+  $("#movie-awards").text("Awards: " + currentMovie.awards);
 }
 
 function showSimilarPosters() {
@@ -250,6 +256,7 @@ function getMovieResults() {
   let title = movieTitleInputEl.value.trim();
 
   searchMovieByTitle(title, "t");
+
 }
 
 // End of code KB
