@@ -140,6 +140,12 @@ function setFavoriteDrinks() {
     let savedDrinks = document.createElement("a");
     savedDrinks.textContent = drinkHistory[i];
 
+    savedDrinks.addEventListener('click', function() {
+      console.log('clicked', this);
+
+      //call function here for displaying modal and fetching data
+    })
+
     let drinkTitle = savedDrinks.textContent;
     //console.log(drinkTitle);
 
@@ -153,6 +159,8 @@ checkBox.addEventListener("click", function(event) {
   saveCurrentDrink();
   setFavoriteDrinks();
 })
+
+const drinkName = document.getElement
 
 // End of code by Maddie
 
