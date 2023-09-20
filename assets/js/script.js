@@ -11,6 +11,14 @@ const currentMovie = {};
 const currentDrink = {};
 const similarMovies = [];
 
+// Variables related to modals code by TP
+const modal = document.querySelector(".modal");
+const movieModal = document.querySelector("#movie-error");
+const drinkModal = document.querySelector("#drink-error");
+const faveDrinkModal = document.querySelector("#fave-drink-modal");
+const modalEls = document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button'); 
+// End of code by TP
+
 // It will storage all the ordinary drinks requested from the Cocktailsdb API
 let ordinaryDrinksList;
 
@@ -49,7 +57,7 @@ function getOrdinaryDrinks() {
       })
       .catch(function (error) {
         console.log(error);
-        console.log("This is when you show the error modal: Unable to connect to the Cocktaildb.com");
+        openModal(drinkModal);
       });
 }
 
@@ -96,7 +104,7 @@ function searchDrinkById(drinkId){
       })
       .catch(function (error) {
         console.log(error);
-        console.log("This is when you show the error modal: Unable to connect to the Cocktaildb.com");
+        openModal(drinkModal);
       });
 }
 
@@ -205,7 +213,7 @@ function searchMovieByTitle(title, param) {
     })
     .catch(function(err) {
       console.log(err);
-      console.log("This is when you show the error modal.");
+      openModal(movieModal);
     });
 }
 
@@ -240,6 +248,7 @@ function searchMovies(title) {
     })
     .catch(function(err) {
       console.log(err);
+      openModal(movieModal);
     });
 }
 
@@ -270,6 +279,30 @@ function getMovieResults() {
 }
 
 // End of code KB
+
+// Start of code TP
+
+function openModal(drinkModal) {
+  drinkModal.classList.add('is-active')
+  }
+
+  function openModal(movieModal) {
+    movieModal.classList.add('is-active');
+  }
+
+  function closeModal(modal) {
+    modal.classList.remove('is-active');
+  }
+
+  modalEls.forEach(function (x) {
+    x.addEventListener('click', () => {
+      closeModal(drinkModal);
+      closeModal(movieModal);
+      closeModal(faveDrinkModal);
+    })
+  })
+
+// End of code TP
 
 // this function has to be deleted
 let getDrinks = function () {
