@@ -1,5 +1,3 @@
-//Start of the Code By SI
-
 const movieTitleInputEl = document.querySelector('#movie-title');
 const movieFormEl = document.querySelector('#movie-form');
 const drinkNameEl = document.querySelector('#drink-name');
@@ -13,13 +11,14 @@ const currentMovie = {};
 const currentDrink = {};
 const similarMovies = [];
 
+// It will storage all the ordinary drinks requested from the Cocktailsdb API
 let ordinaryDrinksList;
 
 //Return a number between min and max-1
 function getRandomArbitrary(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-//It returns an index randomly by genre
+//It returns an index randomly by genre, in a way that it will not return the same index for two different genres
 function getRandomDrinkByGenre(genre) {
   let quantityOfDrinkPerGenre = Math.floor(ordinaryDrinksList.length / genres.length);
 
@@ -42,34 +41,34 @@ function getOrdinaryDrinks() {
       .then(function (response) {
       if (response.ok) {
           response.json().then(function (data) {
-          console.log(data);
           ordinaryDrinksList = data.drinks;
         })
       } else {
-          alert('Error: ' + response.statusText);
+        console.log('Error: ' + response.statusText);
       }
       })
       .catch(function (error) {
-      alert('Unable to connect to the Cocktaildb.com');
+        console.log(error);
+        console.log("This is when you show the error modal: Unable to connect to the Cocktaildb.com");
       });
 }
 
 // Creates a new string with all the ingredients
 function concatIngredients(drink){
-  let ingredients = '';
-  for (i=1; i<15; i++){
+  let ingredients = (drink.strIngredient1 !== null) ? drink.strIngredient1 : '';
+  for (i=2; i<=15; i++){
     let ingredient = drink[`strIngredient${i}`];
-    ingredients = (ingredient !== null) ? ingredients + " " + ingredient : ingredients;
+    ingredients = (ingredient !== null) ? ingredients + ", " + ingredient : ingredients;
   }
   return ingredients;
 }
 
 // Creates a new string with all the Measures
 function concatMeasures(drink){
-  let measures = '';
-  for (i=1; i<=15 ; i++){
+  let measures = (drink.strMeasure1 !== null) ? drink.strMeasure1 : '';
+  for (i=2; i<=15 ; i++){
     let measure = drink[`strMeasure${i}`];
-    measures = (measure !== null) ? measures + " " + measure : measures;
+    measures = (measure !== null) ? measures + ", " + measure : measures;
   }
   return measures;
 }
@@ -83,7 +82,6 @@ function searchDrinkById(drinkId){
       if (response.ok) {
           response.json().then(function (data) {
             let drink = data.drinks[0];
-            console.log(drink);
             currentDrink.id = drink.idDrink;
             currentDrink.name = drink.strDrink;
             currentDrink.imageUrl = drink.strDrinkThumb;
@@ -93,11 +91,12 @@ function searchDrinkById(drinkId){
             showCurrentDrink();
           })
       } else {
-          alert('Error: ' + response.statusText);
+          console.log('Error: ' + response.statusText);
       }
       })
       .catch(function (error) {
-          alert('Unable to connect to the Cocktaildb.com');
+        console.log(error);
+        console.log("This is when you show the error modal: Unable to connect to the Cocktaildb.com");
       });
 }
 
@@ -144,8 +143,6 @@ function saveCurrentDrinkAsFavorite(){
       saveFavoriteDrinksToStorage(favoriteDrinks);
     }
 }
-
-// End of the Code By SI
 
 // Start of code KB
 
@@ -261,6 +258,7 @@ function getMovieResults() {
 
 // End of code KB
 
+// this function has to be deleted
 let getDrinks = function () {
   let apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
 
@@ -279,6 +277,7 @@ let getDrinks = function () {
     });
 };
 
+// this function has to be deleted
 let getMovies = function () {
 
   let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=Teenage Mutant Ninja Turtles";
@@ -302,8 +301,6 @@ let getMovies = function () {
 function init() {
   getOrdinaryDrinks();
 }
-
-
 
 movieFormEl.addEventListener('submit', function (event){ 
   event.preventDefault();
