@@ -125,33 +125,7 @@ function showCurrentDrink(){
   drinkMeasurementsEl.textContent = 'Measures: ' + currentDrink.measurements;
 }
 
-// End of the Code By SI
-
-//Start of code by Maddie
-function removeRecipeModal() {
-  const modal = document.querySelector('.modal-css');
-  if (modal) {
-    modal.remove()
-  }
-}
-
-function displayRecipeModal(element) {
-  let modalDiv = document.createElement('div');
-  modalDiv.classList.add('modal-css');
-
-  let modalDivChild = document.createElement('div');
-  modalDivChild.classList.add('modal-content-css');
-  modalDivChild.innerHTML = element;
-
-  modalDiv.appendChild(modalDivChild);
-  document.body.appendChild(modalDiv);
-
-  modalDiv.addEventListener('click', event => {
-    if (event.target.className === 'modal-css') {
-      removeRecipeModal()
-    }
-  })
-}
+//start of M code
 
 function saveCurrentDrink() {
   let currentDrink = document.getElementById("drink-name").textContent;
@@ -172,10 +146,11 @@ function setFavoriteDrinks() {
     let savedDrinks = document.createElement("a");
     savedDrinks.textContent = drinkHistory[i];
 
-    savedDrinks.addEventListener('click', function() {
-      console.log('clicked', this);
+    savedDrinks.addEventListener('click', () => {
+      faveDrinkModal.classList.add('is-active');
+    
+      //for each function here
 
-      displayRecipeModal();
     })
 
     let drinkTitle = savedDrinks.textContent;
@@ -187,6 +162,7 @@ function setFavoriteDrinks() {
 
 const checkBox = document.getElementById("checkbox");
 checkBox.addEventListener("click", function(event) {
+
   event.preventDefault();
   saveCurrentDrink();
   setFavoriteDrinks();

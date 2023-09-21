@@ -49,7 +49,6 @@ To develop this website, We used the following tutorials and libraries:
     - Bulma: https://bulma.io/  
     - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch
     - Font Awesome:  https://fontawesome.com/   
-    - Create Modal Through JavaScript:  https://medium.com/@clergemarvin/how-to-create-a-modal-in-javascript-e9ddbff9869c
       
 
 ## License
