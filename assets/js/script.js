@@ -113,8 +113,8 @@ function searchDrinkById(drinkId){
             currentDrink.instructions = drink.strInstructions;
             currentDrink.ingredients = createIngredientsList(drink);
             currentDrink.measurements = createMeasurementsList(drink);
-            showCurrentDrink();
             showCurrentPoster();
+            showCurrentDrink();
           })
       } else {
           console.log('Error: ' + response.statusText);
