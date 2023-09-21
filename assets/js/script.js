@@ -56,29 +56,46 @@ function getOrdinaryDrinks() {
       }
       })
       .catch(function (error) {
-        console.log(error);
         openModal(drinkModal);
       });
 }
 
-// Creates a new string with all the ingredients
-function concatIngredients(drink){
-  let ingredients = (drink.strIngredient1 !== null) ? drink.strIngredient1 : '';
-  for (i=2; i<=15; i++){
+// Creates an array with all the ingredients
+function createIngredientsList(drink){
+  let ingredients = [];
+  for (i=1; i<=15; i++){
     let ingredient = drink[`strIngredient${i}`];
-    ingredients = (ingredient !== null) ? ingredients + ", " + ingredient : ingredients;
+    if (ingredient !== null) {
+      ingredients.push(ingredient);
+    }
   }
   return ingredients;
 }
 
-// Creates a new string with all the Measures
-function concatMeasures(drink){
-  let measures = (drink.strMeasure1 !== null) ? drink.strMeasure1 : '';
-  for (i=2; i<=15 ; i++){
-    let measure = drink[`strMeasure${i}`];
-    measures = (measure !== null) ? measures + ", " + measure : measures;
+// Creates an array with all the measurements
+function createMeasurementsList(drink){
+  let measurements = [];
+  for (i=1; i<=15; i++){
+    let measurement = drink[`strMeasure${i}`];
+    if (measurement !== null) {
+      measurements.push(measurement);
+    }
   }
-  return measures;
+  return measurements;
+}
+
+// Creates a new string with all the ingredients and measures side by side
+function createIngredientsAndMeasuresSideBySide(){
+  let ingredientsAndMeasures = 'Ingredients: ';
+  let ingredients = currentDrink.ingredients;
+  let measurements = currentDrink.measurements;
+  for (i=1; i<=15; i++){
+    if (ingredients[i] != null){
+      ingredientsAndMeasures = (measurements[i] != null) ? ingredientsAndMeasures + ` ${measurements[i]} ${ingredients[i]}, `
+        :ingredientsAndMeasures + ` ${ingredients[i]},`;
+    }
+  }
+  return ingredientsAndMeasures;
 }
 
 // Made a request to select a drink by id
@@ -94,8 +111,8 @@ function searchDrinkById(drinkId){
             currentDrink.name = drink.strDrink;
             currentDrink.imageUrl = drink.strDrinkThumb;
             currentDrink.instructions = drink.strInstructions;
-            currentDrink.ingredients = concatIngredients(drink);
-            currentDrink.measurements = concatMeasures(drink);
+            currentDrink.ingredients = createIngredientsList(drink);
+            currentDrink.measurements = createMeasurementsList(drink);
             showCurrentDrink();
           })
       } else {
@@ -103,7 +120,6 @@ function searchDrinkById(drinkId){
       }
       })
       .catch(function (error) {
-        console.log(error);
         openModal(drinkModal);
       });
 }
@@ -121,8 +137,7 @@ function showCurrentDrink(){
   drinkNameEl.textContent = currentDrink.name;
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
   drinkInstructionsEl.textContent = currentDrink.instructions;
-  drinkIngredientsEl.textContent = 'Ingredients: ' + currentDrink.ingredients;
-  drinkMeasurementsEl.textContent = 'Measures: ' + currentDrink.measurements;
+  drinkIngredientsEl.textContent = createIngredientsAndMeasuresSideBySide();
 }
 
 //start of M code
