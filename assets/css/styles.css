@@ -1,3 +1,8 @@
+:root {
+    --light-pink: #e6dedd;
+    --dark-contrast: #4a4a4a;
+}
+
 main {
     text-align: center;
 }
@@ -5,7 +10,7 @@ main {
 .header {
     display: flex;
     justify-content: center;
-    background-color: #e6dedd;
+    background-color: var(--light-pink);
 }
 
 .app-title {
@@ -29,10 +34,11 @@ main {
 
 #drink-img {
     max-height: 445px;
+    max-width: 80%;
 }
 
 input {
-    accent-color: #e6dedd;
+    accent-color: var(--light-pink);
 }
 
 #check-here a {
@@ -44,13 +50,25 @@ input {
 }
 
 #favorites-box {
-    background-color: #e6dedd;
+    background-color: var(--light-pink);
 }
 
 #favorite-cocktails {
-    background-color: #e6dedd;
+    background-color: var(--light-pink);
 }
 
 #favorite-cocktails a {
     display: block;
+}
+
+.kb-rounded {
+    border-radius: 15px;
+    border: 3px solid var(--light-pink);
+}
+
+.detail-container {
+    border-radius: 15px;
+    border: 3px solid var(--light-pink);
+    background-color: var(--light-pink);
+    color: var(--dark-contrast);
 }
