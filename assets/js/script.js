@@ -197,59 +197,25 @@ function setFavoriteDrinks() {
               let drinkImage = data.drinks[0].strDrinkThumb;
 
               let ingredientsArray = []
-              let ingredient1 = data.drinks[0].strIngredient1;
-              let ingredient2 = data.drinks[0].strIngredient2;
-              let ingredient3 = data.drinks[0].strIngredient3;
-              let ingredient4 = data.drinks[0].strIngredient4;
-              let ingredient5 = data.drinks[0].strIngredient5;
-              let ingredient6 = data.drinks[0].strIngredient6;
-              let ingredient7 = data.drinks[0].strIngredient7;
-              let ingredient8 = data.drinks[0].strIngredient8;
-              let ingredient9 = data.drinks[0].strIngredient9;
-              let ingredient10 = data.drinks[0].strIngredient10;
-              let ingredient11 = data.drinks[0].strIngredient11;
-              let ingredient12 = data.drinks[0].strIngredient12;
-              let ingredient13 = data.drinks[0].strIngredient13;
-              let ingredient14 = data.drinks[0].strIngredient14;
-              let ingredient15 = data.drinks[0].strIngredient15;
+
+              for (i = 0; i < 16; i++) {
+                if (data.drinks[0]["strIngredient" + (i+1)]) {
+                  ingredientsArray.push(data.drinks[0]["strIngredient" + (i+1)])
+                }
+              }
 
               console.log(ingredientsArray);
-              ingredientsArray.push(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15);
-              let drinkIngredientsArray = [];
-              for (i=1; i < ingredientsArray.length; i++) {
-                if (ingredientsArray[i] != null) {
-                  drinkIngredientsArray.push(ingredientsArray[i])
-                }
-              }
-              console.log(drinkIngredientsArray);
-              let drinkIngredients = "Ingredients: " + drinkIngredientsArray.join(", ");
+              let drinkIngredients = "Ingredients: " + ingredientsArray.join(", ");
 
               let measurementArray = []
-              let measurement1 = data.drinks[0].strMeasure1;
-              let measurement2 = data.drinks[0].strMeasure2;
-              let measurement3 = data.drinks[0].strMeasure3;
-              let measurement4 = data.drinks[0].strMeasure4;
-              let measurement5 = data.drinks[0].strMeasure5;
-              let measurement6 = data.drinks[0].strMeasure6;
-              let measurement7 = data.drinks[0].strMeasure7;
-              let measurement8 = data.drinks[0].strMeasure8;
-              let measurement9 = data.drinks[0].strMeasure9;
-              let measurement10 = data.drinks[0].strMeasure10;
-              let measurement11 = data.drinks[0].strMeasure11;
-              let measurement12 = data.drinks[0].strMeasure12;
-              let measurement13 = data.drinks[0].strMeasure13;
-              let measurement14 = data.drinks[0].strMeasure14;
-              let measurement15 = data.drinks[0].strMeasure15;
 
-              measurementArray.push(measurement1, measurement2, measurement3, measurement4, measurement5, measurement6, measurement7, measurement8, measurement9, measurement10, measurement11, measurement12, measurement13, measurement14, measurement15);
-              let drinkMeasurementArray = [];
-              for (i=1; i < 15; i++) {
-                if (measurementArray[i] !== null) {
-                  drinkMeasurementArray.push(measurementArray[i])
+              for (i = 0; i < 16; i++) {
+                if (data.drinks[0]["strMeasure" + (i+1)]) {
+                  measurementArray.push(data.drinks[0]["strMeasure" + (i+1)])
                 }
               }
 
-              let drinkMeasurements = "Measurements: " + drinkMeasurementArray.join(", ");
+              let drinkMeasurements = "Measurements: " + measurementArray.join(", ");
               let drinkInstructions = data.drinks[0].strInstructions;
 
               displayName.textContent = drinkName; 
