@@ -240,7 +240,7 @@ function searchMovies(title) {
   fetch(apiUrl)
     .then(function(response) {
       if (response.status !== 200) {
-        throw new Error('Forecast Weather status is not 200 OK');
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       return response.json();
     })
