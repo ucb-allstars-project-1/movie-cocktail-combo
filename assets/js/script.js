@@ -52,10 +52,11 @@ function getOrdinaryDrinks() {
           ordinaryDrinksList = data.drinks;
         })
       } else {
-        console.log('Error: ' + response.statusText);
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       })
       .catch(function (error) {
+        console.log(error);
         openModal(drinkModal);
       });
 }
@@ -117,19 +118,23 @@ function searchDrinkById(drinkId){
             showCurrentDrink();
           })
       } else {
-          console.log('Error: ' + response.statusText);
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       })
       .catch(function (error) {
+        console.log(error);
         openModal(drinkModal);
       });
 }
 
 // Select a drink randomly by Genre
 function selectDrinkByGenre(){
-  //in case the current movie does not have a genre, it will select a drink by genres[0]
-  let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
-  let drink = getRandomDrinkByGenre(genre);
+  //in case the current movie does not have a genre, it will select a drink by the last genre in list of genres
+  let genreIndex = genres.length - 1;
+  if (currentMovie.genre.length > 0){
+    genreIndex = getRandomArbitrary(0, currentMovie.genre.length);
+  }
+  let drink = getRandomDrinkByGenre(currentMovie.genre[genreIndex]);
   searchDrinkById(drink.idDrink);
 }
 
@@ -235,7 +240,7 @@ function searchMovieByTitle(title, param) {
 
 function searchMovies(title) {
 
-  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=" + title;
+  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&s=" + title;
 
   fetch(apiUrl)
     .then(function(response) {
