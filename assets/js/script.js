@@ -5,7 +5,7 @@ const drinkImgEl = document.querySelector('#drink-img');
 const drinkInstructionsEl = document.querySelector('#drink-instructions');
 const drinkIngredientsEl = document.querySelector('#drink-ingredients');
 const drinkMeasurementsEl = document.querySelector('#drink-measurements');
-const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
+const genres = ["Action","Animation","Adventure","Comedy","Family","Short","Drama","Romance","Documentary","Horror","Sci-Fi","Thriller","Mystery","Fantasy","News","Biography","History"];
 
 const currentMovie = {};
 const currentDrink = {};
@@ -32,14 +32,12 @@ function getRandomDrinkByGenre(genre) {
 
   let genreIndex = genres.indexOf(genre);
   genreIndex = (genreIndex == -1) ? 0 : genreIndex;
-  let indexInit = (quantityOfDrinkPerGenre * genreIndex);
+  let indexInit = quantityOfDrinkPerGenre * genreIndex;
 
-  let indexEnd = indexInit + quantityOfDrinkPerGenre - 1;
+  let indexEnd = indexInit + quantityOfDrinkPerGenre;
   let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
   return ordinaryDrinksList[drinkIndex];
 }
-
-
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
@@ -52,7 +50,7 @@ function getOrdinaryDrinks() {
           ordinaryDrinksList = data.drinks;
         })
       } else {
-        console.log('Error: ' + response.statusText);
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       })
       .catch(function (error) {
@@ -61,24 +59,42 @@ function getOrdinaryDrinks() {
       });
 }
 
-// Creates a new string with all the ingredients
-function concatIngredients(drink){
-  let ingredients = (drink.strIngredient1 !== null) ? drink.strIngredient1 : '';
-  for (i=2; i<=15; i++){
+// Creates an array with all the ingredients
+function createIngredientsList(drink){
+  let ingredients = [];
+  for (i=1; i<=15; i++){
     let ingredient = drink[`strIngredient${i}`];
-    ingredients = (ingredient !== null) ? ingredients + ", " + ingredient : ingredients;
+    if (ingredient !== null) {
+      ingredients.push(ingredient);
+    }
   }
   return ingredients;
 }
 
-// Creates a new string with all the Measures
-function concatMeasures(drink){
-  let measures = (drink.strMeasure1 !== null) ? drink.strMeasure1 : '';
-  for (i=2; i<=15 ; i++){
-    let measure = drink[`strMeasure${i}`];
-    measures = (measure !== null) ? measures + ", " + measure : measures;
+// Creates an array with all the measurements
+function createMeasurementsList(drink){
+  let measurements = [];
+  for (i=1; i<=15; i++){
+    let measurement = drink[`strMeasure${i}`];
+    if (measurement !== null) {
+      measurements.push(measurement);
+    }
   }
-  return measures;
+  return measurements;
+}
+
+// Creates a new string with all the ingredients and measures side by side
+function createIngredientsAndMeasuresSideBySide(){
+  let ingredientsAndMeasures = 'Ingredients: ';
+  let ingredients = currentDrink.ingredients;
+  let measurements = currentDrink.measurements;
+  for (i=1; i<=15; i++){
+    if (ingredients[i] != null){
+      ingredientsAndMeasures = (measurements[i] != null) ? ingredientsAndMeasures + ` ${measurements[i]} ${ingredients[i]}, `
+        :ingredientsAndMeasures + ` ${ingredients[i]},`;
+    }
+  }
+  return ingredientsAndMeasures;
 }
 
 // Made a request to select a drink by id
@@ -94,12 +110,13 @@ function searchDrinkById(drinkId){
             currentDrink.name = drink.strDrink;
             currentDrink.imageUrl = drink.strDrinkThumb;
             currentDrink.instructions = drink.strInstructions;
-            currentDrink.ingredients = concatIngredients(drink);
-            currentDrink.measurements = concatMeasures(drink);
+            currentDrink.ingredients = createIngredientsList(drink);
+            currentDrink.measurements = createMeasurementsList(drink);
+            showCurrentPoster();
             showCurrentDrink();
           })
       } else {
-          console.log('Error: ' + response.statusText);
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       })
       .catch(function (error) {
@@ -110,9 +127,13 @@ function searchDrinkById(drinkId){
 
 // Select a drink randomly by Genre
 function selectDrinkByGenre(){
-  //in case the current movie does not have a genre, it will select a drink by genres[0]
-  let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
-  let drink = getRandomDrinkByGenre(genre);
+  //in case the current movie does not have a genre, it will select a drink by the last genre in list of genres
+  let genreIndex = genres.length - 1;
+  let movieGenres = currentMovie.genre.split(', ');
+  if (movieGenres.length > 0){
+    genreIndex = getRandomArbitrary(0, movieGenres.length);
+  }
+  let drink = getRandomDrinkByGenre(movieGenres[genreIndex]);
   searchDrinkById(drink.idDrink);
 }
 
@@ -121,20 +142,18 @@ function showCurrentDrink(){
   drinkNameEl.textContent = currentDrink.name;
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
   drinkInstructionsEl.textContent = currentDrink.instructions;
-  drinkIngredientsEl.textContent = 'Ingredients: ' + currentDrink.ingredients;
-  drinkMeasurementsEl.textContent = 'Measures: ' + currentDrink.measurements;
+  drinkIngredientsEl.textContent = createIngredientsAndMeasuresSideBySide();
 }
-
-// End of the Code By SI
-
-//Start of code by Maddie
 
 function saveCurrentDrink() {
   let currentDrink = document.getElementById("drink-name").textContent;
   //console.log(currentDrink);
   
   const existingDrinks = JSON.parse(localStorage.getItem("storeDrinks")) || [];
-  existingDrinks.push(currentDrink);
+  
+  if(existingDrinks.indexOf(currentDrink) == -1) {
+    existingDrinks.push(currentDrink);
+  }
 
   localStorage.setItem("storeDrinks", JSON.stringify(existingDrinks));
 }
@@ -144,16 +163,113 @@ function setFavoriteDrinks() {
   drinkStorage.innerHTML = "";
   const drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
 
-  for (let i = 0; i < drinkHistory.length; i++) {
-    let savedDrinks = document.createElement("a");
-    savedDrinks.textContent = drinkHistory[i];
+  if (drinkHistory !== null) {
+    for (let i = 0; i < drinkHistory.length; i++) {
+      let savedDrinks = document.createElement("a");
+      savedDrinks.textContent = drinkHistory[i];
+      drinkStorage.appendChild(savedDrinks);
+      
 
-    let drinkTitle = savedDrinks.textContent;
-    //console.log(drinkTitle);
+      savedDrinks.addEventListener('click', () => {
+        faveDrinkModal.classList.add('is-active');
+      
+        let drinkTitle = savedDrinks.textContent;
+        //console.log(drinkTitle);
+        let drinkURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkTitle;
 
-    drinkStorage.appendChild(savedDrinks);
+        fetch(drinkURL)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+
+            function modalDrinks() {
+              
+              const displayName = document.getElementById("modal-title");
+              const displayImage = document.getElementById("modal-image-display");
+              const displayIngredients = document.getElementById("modal-ingredients");
+              const displayMeasurements = document.getElementById("modal-measurements");
+              const displayInstructions = document.getElementById("modal-instructions");
+
+              let drinkName = data.drinks[0].strDrink;
+              //console.log(drinkName);
+              let drinkImage = data.drinks[0].strDrinkThumb;
+
+              let ingredientsArray = []
+              let ingredient1 = data.drinks[0].strIngredient1;
+              let ingredient2 = data.drinks[0].strIngredient2;
+              let ingredient3 = data.drinks[0].strIngredient3;
+              let ingredient4 = data.drinks[0].strIngredient4;
+              let ingredient5 = data.drinks[0].strIngredient5;
+              let ingredient6 = data.drinks[0].strIngredient6;
+              let ingredient7 = data.drinks[0].strIngredient7;
+              let ingredient8 = data.drinks[0].strIngredient8;
+              let ingredient9 = data.drinks[0].strIngredient9;
+              let ingredient10 = data.drinks[0].strIngredient10;
+              let ingredient11 = data.drinks[0].strIngredient11;
+              let ingredient12 = data.drinks[0].strIngredient12;
+              let ingredient13 = data.drinks[0].strIngredient13;
+              let ingredient14 = data.drinks[0].strIngredient14;
+              let ingredient15 = data.drinks[0].strIngredient15;
+
+              console.log(ingredientsArray);
+              ingredientsArray.push(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5, ingredient6, ingredient7, ingredient8, ingredient9, ingredient10, ingredient11, ingredient12, ingredient13, ingredient14, ingredient15);
+              let drinkIngredientsArray = [];
+              for (i=1; i < ingredientsArray.length; i++) {
+                if (ingredientsArray[i] != null) {
+                  drinkIngredientsArray.push(ingredientsArray[i])
+                }
+              }
+              console.log(drinkIngredientsArray);
+              let drinkIngredients = "Ingredients: " + drinkIngredientsArray.join(", ");
+
+              let measurementArray = []
+              let measurement1 = data.drinks[0].strMeasure1;
+              let measurement2 = data.drinks[0].strMeasure2;
+              let measurement3 = data.drinks[0].strMeasure3;
+              let measurement4 = data.drinks[0].strMeasure4;
+              let measurement5 = data.drinks[0].strMeasure5;
+              let measurement6 = data.drinks[0].strMeasure6;
+              let measurement7 = data.drinks[0].strMeasure7;
+              let measurement8 = data.drinks[0].strMeasure8;
+              let measurement9 = data.drinks[0].strMeasure9;
+              let measurement10 = data.drinks[0].strMeasure10;
+              let measurement11 = data.drinks[0].strMeasure11;
+              let measurement12 = data.drinks[0].strMeasure12;
+              let measurement13 = data.drinks[0].strMeasure13;
+              let measurement14 = data.drinks[0].strMeasure14;
+              let measurement15 = data.drinks[0].strMeasure15;
+
+              measurementArray.push(measurement1, measurement2, measurement3, measurement4, measurement5, measurement6, measurement7, measurement8, measurement9, measurement10, measurement11, measurement12, measurement13, measurement14, measurement15);
+              let drinkMeasurementArray = [];
+              for (i=1; i < 15; i++) {
+                if (measurementArray[i] !== null) {
+                  drinkMeasurementArray.push(measurementArray[i])
+                }
+              }
+
+              let drinkMeasurements = "Measurements: " + drinkMeasurementArray.join(", ");
+              let drinkInstructions = data.drinks[0].strInstructions;
+
+              displayName.textContent = drinkName; 
+              displayImage.src = drinkImage;
+              displayIngredients.textContent = drinkIngredients;
+              displayMeasurements.textContent = drinkMeasurements;
+              displayInstructions.textContent = drinkInstructions;
+            }
+
+            modalDrinks();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      })
+    }
   }
 }
+
+setFavoriteDrinks();
 
 const checkBox = document.getElementById("checkbox");
 checkBox.addEventListener("click", function(event) {
@@ -209,7 +325,7 @@ function searchMovieByTitle(title, param) {
       console.log(currentMovie);
       selectDrinkByGenre();
       searchMovies(title);
-      showCurrentPoster();
+      //showCurrentPoster();
     })
     .catch(function(err) {
       console.log(err);
@@ -219,12 +335,12 @@ function searchMovieByTitle(title, param) {
 
 function searchMovies(title) {
 
-  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=" + title;
+  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&s=" + title;
 
   fetch(apiUrl)
     .then(function(response) {
       if (response.status !== 200) {
-        throw new Error('Forecast Weather status is not 200 OK');
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       return response.json();
     })
@@ -304,45 +420,6 @@ function openModal(drinkModal) {
 
 // End of code TP
 
-// this function has to be deleted
-let getDrinks = function () {
-  let apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
-
-  fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect');
-    });
-};
-
-// this function has to be deleted
-let getMovies = function () {
-
-  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=Teenage Mutant Ninja Turtles";
-
-  fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect');
-    });
-};
-
 //This function will initialize the ordinary drink list
 function init() {
   getOrdinaryDrinks();
@@ -355,5 +432,5 @@ movieFormEl.addEventListener('submit', function (event){
 
 init();
 
-//getDrinks();
-//getMovies();
+
+

@@ -23,7 +23,7 @@
         <div>
             <form id="movie-form" class="columns m-6 is-justify-content-center" action="">
                 <div class="is-flex control column is-8">
-                    <input id="movie-title" class="input" type="text" placeholder="Movie title">
+                    <input id="movie-title" class="input" type="text" placeholder="Enter a movie, get a cocktail!">
                     <!-- <button id="action" class="button is-light" type="submit">Action!</button> -->
                     <button class="button">
                         <span class="icon">
@@ -111,8 +111,8 @@
             </div>
         </div>
     </main>
-    <footer>
-        <p>Enter footer here</p>
+    <footer class="is-flex is-justify-content-center has-text-danger-light pb-5">
+        <p>This web application was developed in collaboration with Madison Eckstrom, Tabbatha Pischke, Solange Indaco, and Koby Barrett.™</p>
     </footer>
     <!-- Modal for movie error -->
     <div class="modal" id="movie-error">
@@ -145,14 +145,14 @@
         <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
-            <p class="modal-card-title">SAVED DRINK</p>
+            <p id="modal-title" class="modal-card-title">Drink Name</p>
             <button class="delete" aria-label="close"></button>
           </header>
           <section class="modal-card-body">
-            <img>
-            <p>Cocktail Name</p>
-            <p>Ingredients</p>
-            <p>Instructions on how to make a yummy cocktail</p>
+            <img id="modal-image-display" class="modal-image-display">
+            <p id="modal-ingredients" class="pt-2">Ingredients</p>
+            <p id="modal-measurements">Measurements</p>
+            <p id="modal-instructions" class="pt-2">Instructions</p>
           </section>
         </div>
       </div>
