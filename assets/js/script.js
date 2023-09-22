@@ -5,7 +5,7 @@ const drinkImgEl = document.querySelector('#drink-img');
 const drinkInstructionsEl = document.querySelector('#drink-instructions');
 const drinkIngredientsEl = document.querySelector('#drink-ingredients');
 const drinkMeasurementsEl = document.querySelector('#drink-measurements');
-const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance","Documentary"];
+const genres = ["Action","Animation","Adventure","Comedy","Family","Short","Drama","Romance","Documentary","Horror","Sci-Fi","Thriller","Mystery","Fantasy","News","Biography","History"];
 
 const currentMovie = {};
 const currentDrink = {};
@@ -32,14 +32,12 @@ function getRandomDrinkByGenre(genre) {
 
   let genreIndex = genres.indexOf(genre);
   genreIndex = (genreIndex == -1) ? 0 : genreIndex;
-  let indexInit = (quantityOfDrinkPerGenre * genreIndex);
+  let indexInit = quantityOfDrinkPerGenre * genreIndex;
 
-  let indexEnd = indexInit + quantityOfDrinkPerGenre - 1;
+  let indexEnd = indexInit + quantityOfDrinkPerGenre;
   let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
   return ordinaryDrinksList[drinkIndex];
 }
-
-
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
@@ -131,10 +129,13 @@ function searchDrinkById(drinkId){
 function selectDrinkByGenre(){
   //in case the current movie does not have a genre, it will select a drink by the last genre in list of genres
   let genreIndex = genres.length - 1;
-  if (currentMovie.genre.length > 0){
-    genreIndex = getRandomArbitrary(0, currentMovie.genre.length);
+  let movieGenres = currentMovie.genre.split(', ');
+  //let genre = Array.isArray(movieGenres) ? data.Genre.split(',')[0] : genre;
+  console.log("movie genres:" + movieGenres);
+  if (movieGenres.length > 0){
+    genreIndex = getRandomArbitrary(0, movieGenres.length);
   }
-  let drink = getRandomDrinkByGenre(currentMovie.genre[genreIndex]);
+  let drink = getRandomDrinkByGenre(movieGenres[genreIndex]);
   searchDrinkById(drink.idDrink);
 }
 
@@ -336,4 +337,6 @@ movieFormEl.addEventListener('submit', function (event){
 });
 
 init();
+
+
 
