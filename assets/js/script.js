@@ -140,14 +140,15 @@ function showCurrentDrink(){
   drinkIngredientsEl.textContent = createIngredientsAndMeasuresSideBySide();
 }
 
-//start of M code
-
 function saveCurrentDrink() {
   let currentDrink = document.getElementById("drink-name").textContent;
   //console.log(currentDrink);
   
   const existingDrinks = JSON.parse(localStorage.getItem("storeDrinks")) || [];
-  existingDrinks.push(currentDrink);
+  
+  if(existingDrinks.indexOf(currentDrink) == -1) {
+    existingDrinks.push(currentDrink);
+  }
 
   localStorage.setItem("storeDrinks", JSON.stringify(existingDrinks));
 }
@@ -157,33 +158,66 @@ function setFavoriteDrinks() {
   drinkStorage.innerHTML = "";
   const drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
 
-  for (let i = 0; i < drinkHistory.length; i++) {
-    let savedDrinks = document.createElement("a");
-    savedDrinks.textContent = drinkHistory[i];
+  if (drinkHistory !== null) {
+    for (let i = 0; i < drinkHistory.length; i++) {
+      let savedDrinks = document.createElement("a");
+      savedDrinks.textContent = drinkHistory[i];
+      drinkStorage.appendChild(savedDrinks);
 
-    savedDrinks.addEventListener('click', () => {
-      faveDrinkModal.classList.add('is-active');
-    
-      //for each function here
+      savedDrinks.addEventListener('click', () => {
+        faveDrinkModal.classList.add('is-active');
+      
+        let drinkTitle = savedDrinks.textContent;
+        //console.log(drinkTitle);
+        let drinkURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkTitle;
 
-    })
+        fetch(drinkURL)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
 
-    let drinkTitle = savedDrinks.textContent;
-    //console.log(drinkTitle);
+            function modalDrinks() {
+              
+              const displayName = document.getElementById("modal-card-title");
+              const displayImage = document.getElementById("modal-image-display");
+              const displayIngredients = document.getElementById("modal-ingredients");
+              const displayMeasurements = document.getElementById("modal-measurements");
+              const displayInstructions = document.getElementById("modal-instructions");
 
-    drinkStorage.appendChild(savedDrinks);
+              let drinkName = data.drinks[0].strDrink;
+              //console.log(drinkName);
+              let drinkImage = data.drinks[0].strDrinkThumb;
+              let drinkIngredients = "Ingredients: " + data.drinks[0].strIngredient1 + ", " + data.drinks[0].strIngredient2 + ", " + data.drinks[0].strIngredient3 + ", " + data.drinks[0].strIngredient4 + ", " + data.drinks[0].strIngredient5 + ", " + data.drinks[0].strIngredient6 + ", " + data.drinks[0].strIngredient7 + ", " + data.drinks[0].strIngredient8 + ", " + data.drinks[0].strIngredient9 + ", " + data.drinks[0].strIngredient10 + ", " + data.drinks[0].strIngredient11 + ", " + data.drinks[0].strIngredient12 + ", " + data.drinks[0].strIngredient13 + ", " + data.drinks[0].strIngredient14 + ", " + data.drinks[0].strIngredient15;
+              let drinkMeasurements = "Measurements: " + data.drinks[0].strMeasure1 + ", " + data.drinks[0].strMeasure2 + ", " + data.drinks[0].strMeasure3 + ", " + data.drinks[0].strMeasure4 + ", " + data.drinks[0].strMeasure5 + ", " + data.drinks[0].strMeasure6 + ", " + data.drinks[0].strMeasure7 + ", " + data.drinks[0].strMeasure8 + ", " + data.drinks[0].strMeasure9 + ", " + data.drinks[0].strMeasure10 + ", " + data.drinks[0].strMeasure11 + ", " + data.drinks[0].strMeasure12 + ", " + data.drinks[0].strMeasure13 + ", " + data.drinks[0].strMeasure14 + ", " + data.drinks[0].strMeasure15;
+              let drinkInstructions = data.drinks[0].strInstructions;
+
+              //displayName.textContent = drinkName; NOT WORKING  
+              displayImage.src = drinkImage;
+              displayIngredients.textContent = drinkIngredients;
+              displayMeasurements.textContent = drinkMeasurements;
+              displayInstructions.textContent = drinkInstructions;
+            }
+
+            modalDrinks();
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      })
+    }
   }
 }
 
+setFavoriteDrinks();
+
 const checkBox = document.getElementById("checkbox");
 checkBox.addEventListener("click", function(event) {
-
   event.preventDefault();
   saveCurrentDrink();
   setFavoriteDrinks();
 })
-
-const drinkName = document.getElement
 
 // End of code by Maddie
 
