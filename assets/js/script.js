@@ -180,7 +180,7 @@ function setFavoriteDrinks() {
 
             function modalDrinks() {
               
-              const displayName = document.getElementById("modal-card-title");
+              const displayName = document.getElementById("modal-title");
               const displayImage = document.getElementById("modal-image-display");
               const displayIngredients = document.getElementById("modal-ingredients");
               const displayMeasurements = document.getElementById("modal-measurements");
@@ -193,7 +193,7 @@ function setFavoriteDrinks() {
               let drinkMeasurements = "Measurements: " + data.drinks[0].strMeasure1 + ", " + data.drinks[0].strMeasure2 + ", " + data.drinks[0].strMeasure3 + ", " + data.drinks[0].strMeasure4 + ", " + data.drinks[0].strMeasure5 + ", " + data.drinks[0].strMeasure6 + ", " + data.drinks[0].strMeasure7 + ", " + data.drinks[0].strMeasure8 + ", " + data.drinks[0].strMeasure9 + ", " + data.drinks[0].strMeasure10 + ", " + data.drinks[0].strMeasure11 + ", " + data.drinks[0].strMeasure12 + ", " + data.drinks[0].strMeasure13 + ", " + data.drinks[0].strMeasure14 + ", " + data.drinks[0].strMeasure15;
               let drinkInstructions = data.drinks[0].strInstructions;
 
-              //displayName.textContent = drinkName; NOT WORKING  
+              displayName.textContent = drinkName; 
               displayImage.src = drinkImage;
               displayIngredients.textContent = drinkIngredients;
               displayMeasurements.textContent = drinkMeasurements;
