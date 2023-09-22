@@ -130,8 +130,6 @@ function selectDrinkByGenre(){
   //in case the current movie does not have a genre, it will select a drink by the last genre in list of genres
   let genreIndex = genres.length - 1;
   let movieGenres = currentMovie.genre.split(', ');
-  //let genre = Array.isArray(movieGenres) ? data.Genre.split(',')[0] : genre;
-  console.log("movie genres:" + movieGenres);
   if (movieGenres.length > 0){
     genreIndex = getRandomArbitrary(0, movieGenres.length);
   }
