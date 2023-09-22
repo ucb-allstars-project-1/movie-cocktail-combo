@@ -1,6 +1,7 @@
 :root {
     --light-pink: #e6dedd;
     --dark-contrast: #4a4a4a;
+    --red-header-text: #8a0f0f;
 }
 
 main {
@@ -71,4 +72,9 @@ input {
     border: 3px solid var(--light-pink);
     background-color: var(--light-pink);
     color: var(--dark-contrast);
+}
+
+.columns {
+    margin-left: 0rem !important;
+    margin-right: 0rem !important;
 }
