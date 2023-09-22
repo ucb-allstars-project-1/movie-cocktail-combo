@@ -416,45 +416,6 @@ function openModal(drinkModal) {
 
 // End of code TP
 
-// this function has to be deleted
-let getDrinks = function () {
-  let apiUrl = "https://thecocktaildb.com/api/json/v1/1/search.php?f=a";
-
-  fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect');
-    });
-};
-
-// this function has to be deleted
-let getMovies = function () {
-
-  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=Teenage Mutant Ninja Turtles";
-
-  fetch(apiUrl)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log(data);
-        });
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect');
-    });
-};
-
 //This function will initialize the ordinary drink list
 function init() {
   getOrdinaryDrinks();
@@ -467,5 +428,3 @@ movieFormEl.addEventListener('submit', function (event){
 
 init();
 
-//getDrinks();
-//getMovies();
