@@ -5,7 +5,7 @@ const drinkImgEl = document.querySelector('#drink-img');
 const drinkInstructionsEl = document.querySelector('#drink-instructions');
 const drinkIngredientsEl = document.querySelector('#drink-ingredients');
 const drinkMeasurementsEl = document.querySelector('#drink-measurements');
-const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance"];
+const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance","Documentary"];
 
 const currentMovie = {};
 const currentDrink = {};
@@ -113,6 +113,7 @@ function searchDrinkById(drinkId){
             currentDrink.instructions = drink.strInstructions;
             currentDrink.ingredients = createIngredientsList(drink);
             currentDrink.measurements = createMeasurementsList(drink);
+            showCurrentPoster();
             showCurrentDrink();
           })
       } else {
@@ -224,7 +225,7 @@ function searchMovieByTitle(title, param) {
       console.log(currentMovie);
       selectDrinkByGenre();
       searchMovies(title);
-      showCurrentPoster();
+      //showCurrentPoster();
     })
     .catch(function(err) {
       console.log(err);
