@@ -54,3 +54,44 @@ input {
 #favorite-cocktails a {
     display: block;
 }
+
+.modal-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-card-head {
+    display: flex;
+}
+
+.modal-card-title {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-image-display {
+    display: flex;
+    align-self: center;
+    height: 75%;
+    width: 75%;
+}
+
+#modal-ingredients {
+    display: flex;
+    align-self: center;
+}
+
+#modal-measurements {
+    display: flex;
+    align-self: center;
+}
+
+#modal-instructions {
+    display: flex;
+    align-self: center;
+}
