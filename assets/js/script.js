@@ -5,7 +5,7 @@ const drinkImgEl = document.querySelector('#drink-img');
 const drinkInstructionsEl = document.querySelector('#drink-instructions');
 const drinkIngredientsEl = document.querySelector('#drink-ingredients');
 const drinkMeasurementsEl = document.querySelector('#drink-measurements');
-const genres = ["Action", "Horror", "Sci-Fi", "Animation", "Adventure", "Comedy", "Family", "Short", "Drama", "Romance","Documentary"];
+const genres = ["Action","Animation","Adventure","Comedy","Family","Short","Drama","Romance","Documentary","Horror","Sci-Fi","Thriller","Mystery","Fantasy","News","Biography","History"];
 
 const currentMovie = {};
 const currentDrink = {};
@@ -32,14 +32,12 @@ function getRandomDrinkByGenre(genre) {
 
   let genreIndex = genres.indexOf(genre);
   genreIndex = (genreIndex == -1) ? 0 : genreIndex;
-  let indexInit = (quantityOfDrinkPerGenre * genreIndex);
+  let indexInit = quantityOfDrinkPerGenre * genreIndex;
 
-  let indexEnd = indexInit + quantityOfDrinkPerGenre - 1;
+  let indexEnd = indexInit + quantityOfDrinkPerGenre;
   let drinkIndex = getRandomArbitrary(indexInit, indexEnd);
   return ordinaryDrinksList[drinkIndex];
 }
-
-
 
 //Fill the oridinaryDrinksList with an array of ordinary drinks from thecocktail API
 function getOrdinaryDrinks() {
@@ -52,10 +50,11 @@ function getOrdinaryDrinks() {
           ordinaryDrinksList = data.drinks;
         })
       } else {
-        console.log('Error: ' + response.statusText);
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       })
       .catch(function (error) {
+        console.log(error);
         openModal(drinkModal);
       });
 }
@@ -117,19 +116,24 @@ function searchDrinkById(drinkId){
             showCurrentDrink();
           })
       } else {
-          console.log('Error: ' + response.statusText);
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       })
       .catch(function (error) {
+        console.log(error);
         openModal(drinkModal);
       });
 }
 
 // Select a drink randomly by Genre
 function selectDrinkByGenre(){
-  //in case the current movie does not have a genre, it will select a drink by genres[0]
-  let genre = Array.isArray(currentMovie.genre.length > 0) ? currentMovie.genre[0] : genres[0];
-  let drink = getRandomDrinkByGenre(genre);
+  //in case the current movie does not have a genre, it will select a drink by the last genre in list of genres
+  let genreIndex = genres.length - 1;
+  let movieGenres = currentMovie.genre.split(', ');
+  if (movieGenres.length > 0){
+    genreIndex = getRandomArbitrary(0, movieGenres.length);
+  }
+  let drink = getRandomDrinkByGenre(movieGenres[genreIndex]);
   searchDrinkById(drink.idDrink);
 }
 
@@ -235,12 +239,12 @@ function searchMovieByTitle(title, param) {
 
 function searchMovies(title) {
 
-  let apiUrl = "http://www.omdbapi.com/?apikey=d2be7440&s=" + title;
+  let apiUrl = "https://www.omdbapi.com/?apikey=d2be7440&s=" + title;
 
   fetch(apiUrl)
     .then(function(response) {
       if (response.status !== 200) {
-        throw new Error('Forecast Weather status is not 200 OK');
+        throw new Error('MovieMix & Sip status is not 200 OK');
       }
       return response.json();
     })
@@ -331,4 +335,6 @@ movieFormEl.addEventListener('submit', function (event){
 });
 
 init();
+
+
 
