@@ -148,30 +148,39 @@ function showCurrentDrink(){
   drinkIngredientsEl.textContent = createIngredientsAndMeasuresSideBySide();
 }
 
-function removeCurrentDrink() {
-
+function setCheckBox() {
+  const drink = document.getElementById("drink-name").textContent;
+  const star = document.querySelector("#checkbox i");
+  if(drinkHistory.indexOf(drink) == -1) {
+    checkBox.style.backgroundColor = "var(--light-pink)";
+    star.style.color = "var(--red-header-text)";
+  } else {
+    checkBox.style.backgroundColor = "var(--dark-contrast)";
+    star.style.color = "var(--yellow-check-box)";
+  }
 }
 
 function toggleCurrentDrink() {
-  let currentDrink = document.getElementById("drink-name").textContent;
-  //console.log(currentDrink);
+  const drink = document.getElementById("drink-name").textContent;
+  //console.log(drink);
   
   drinkHistory = JSON.parse(localStorage.getItem("storeDrinks")) || [];
   
-  if(drinkHistory.indexOf(currentDrink) == -1) {
-    drinkHistory.push(currentDrink);
+  if(drinkHistory.indexOf(drink) == -1) {
+    drinkHistory.push(drink);
   } else {
-    drinkHistory = drinkHistory.filter(item => item !== currentDrink);
+    drinkHistory = drinkHistory.filter(item => item !== drink);
   }
 
   localStorage.setItem("storeDrinks", JSON.stringify(drinkHistory));
 }
 
 function setFavoriteDrinks() {
+  
   const drinkStorage = document.getElementById("favorite-cocktails");
   drinkStorage.innerHTML = "";
   drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
-
+  setCheckBox();
   if (drinkHistory !== null) {
     
     if(drinkHistory.length == 0 && !clearBox.classList.contains("is-hidden")){
