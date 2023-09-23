@@ -25,6 +25,10 @@ main {
     color: #8a0f0f;
 }
 
+#sub-app-title {
+    justify-content: space-around;
+}
+
 #and {
     color: #c22828;
 }
