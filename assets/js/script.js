@@ -23,6 +23,7 @@ const clearBox = document.getElementById("clear-box");
 
 // It will storage all the ordinary drinks requested from the Cocktailsdb API
 let ordinaryDrinksList;
+let drinkHistory;
 
 //Return a number between min and max-1
 function getRandomArbitrary(min, max) {
@@ -147,23 +148,29 @@ function showCurrentDrink(){
   drinkIngredientsEl.textContent = createIngredientsAndMeasuresSideBySide();
 }
 
-function saveCurrentDrink() {
+function removeCurrentDrink() {
+
+}
+
+function toggleCurrentDrink() {
   let currentDrink = document.getElementById("drink-name").textContent;
   //console.log(currentDrink);
   
-  const existingDrinks = JSON.parse(localStorage.getItem("storeDrinks")) || [];
+  drinkHistory = JSON.parse(localStorage.getItem("storeDrinks")) || [];
   
-  if(existingDrinks.indexOf(currentDrink) == -1) {
-    existingDrinks.push(currentDrink);
+  if(drinkHistory.indexOf(currentDrink) == -1) {
+    drinkHistory.push(currentDrink);
+  } else {
+    drinkHistory = drinkHistory.filter(item => item !== currentDrink);
   }
 
-  localStorage.setItem("storeDrinks", JSON.stringify(existingDrinks));
+  localStorage.setItem("storeDrinks", JSON.stringify(drinkHistory));
 }
 
 function setFavoriteDrinks() {
   const drinkStorage = document.getElementById("favorite-cocktails");
   drinkStorage.innerHTML = "";
-  const drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
+  drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
 
   if (drinkHistory !== null) {
     
@@ -249,7 +256,7 @@ function setFavoriteDrinks() {
 
 checkBox.addEventListener("click", function(event) {
   event.preventDefault();
-  saveCurrentDrink();
+  toggleCurrentDrink();
   setFavoriteDrinks();
 })
 
