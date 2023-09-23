@@ -38,21 +38,13 @@ main {
     flex-direction: right;
 }
 
-#drink-img {
+#drink-img-dim {
     max-height: 445px;
     max-width: 80%;
 }
 
 input {
     accent-color: var(--light-pink);
-}
-
-#check-here a {
-    color: white;
-}
-
-#check-here a:hover {
-    color: #8a0f0f
 }
 
 #favorites-box {
@@ -87,6 +79,20 @@ input {
     margin-right: 0rem !important;
 }
 
+#check-here {
+    position: absolute;
+    top: 5%;
+    right: 15%;
+}
+
+#check-here a {
+    color: white;
+}
+
+#check-here a:hover {
+    color: #8a0f0f
+}
+
 #check-here>* {
     display: inline;
 }
@@ -103,10 +109,10 @@ input {
     padding-top: 2%;
 }
 
-#movie-photo, #drink-img {
+#movie-photo,
+#drink-img {
     box-shadow: 3px 4px var(--red-header-text);
 }
-
 
 
 .modal-card {

@@ -57,17 +57,19 @@
                 <div class="column p-0-mobile is-half is-flex is-flex-direction-column is-justify-content-center">
                     <!-- below is the cocktail photo -->
                     <div class="movie-poster is-flex is-justify-content-center is-flex-grow-1">
-                        <img id="drink-img" class="kb-rounded"
-                            src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
+                        <div id="drink-img-dim" class="is-relative is-flex is-justify-content-center">
+                            <img id="drink-img" class="kb-rounded"
+                                src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
+                            <label id="check-here" class="">
+                                <div id="checkbox" class="star-detail px-1">
+                                    <i class="fa-solid fa-star fa-beat" style="color: var(--red-header-text)"></i>
+                                </div>
+                                <a class="is-hidden" href="#favorite-cocktails">Favorite</a>
+                            </label>
+                        </div>
                     </div>
                     <div id="drink-main" class="is-flex is-justify-content-center py-4">
                         <p id="drink-name" class="title has-text-danger-light pr-3 mb-0">Dirty Martini</p>
-                        <label id="check-here">
-                            <div id="checkbox" class="star-detail pl-1">
-                                <i class="fa-solid fa-star fa-beat" style="color: var(--red-header-text)"></i>
-                            </div>
-                            <a href="#favorite-cocktails">Favorite</a>
-                        </label>
                     </div>
                 </div>
             </div>
@@ -184,7 +186,7 @@
             </header>
             <section class="modal-card-body">
                 <img id="modal-movie-image-display" class="modal-image-display">
-                
+
             </section>
         </div>
     </div>
