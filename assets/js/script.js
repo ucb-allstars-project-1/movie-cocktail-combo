@@ -11,13 +11,15 @@ const currentMovie = {};
 const currentDrink = {};
 const similarMovies = [];
 
-// Variables related to modals code by TP
+
 const modal = document.querySelector(".modal");
 const movieModal = document.querySelector("#movie-error");
 const drinkModal = document.querySelector("#drink-error");
 const faveDrinkModal = document.querySelector("#fave-drink-modal");
 const modalEls = document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button'); 
-// End of code by TP
+
+const checkBox = document.getElementById("checkbox");
+const clearBox = document.getElementById("clear-box");
 
 // It will storage all the ordinary drinks requested from the Cocktailsdb API
 let ordinaryDrinksList;
@@ -164,6 +166,11 @@ function setFavoriteDrinks() {
   const drinkHistory = JSON.parse(localStorage.getItem("storeDrinks"));
 
   if (drinkHistory !== null) {
+    
+    if(drinkHistory.length > 0 && clearBox.classList.contains("is-hidden")) {
+      clearBox.classList.toggle("is-hidden");
+    }
+
     for (let i = 0; i < drinkHistory.length; i++) {
       let savedDrinks = document.createElement("a");
       savedDrinks.textContent = drinkHistory[i];
@@ -235,19 +242,24 @@ function setFavoriteDrinks() {
   }
 }
 
-setFavoriteDrinks();
 
-const checkBox = document.getElementById("checkbox");
+
+
+
 checkBox.addEventListener("click", function(event) {
   event.preventDefault();
   saveCurrentDrink();
   setFavoriteDrinks();
 })
 
-// End of code by Maddie
+clearBox.addEventListener("click", function() {
+  localStorage.setItem("storeDrinks", "[]");
+  setFavoriteDrinks();
+  console.log(this);
+  this.classList.toggle("is-hidden");
+})
 
 
-// Start of code KB
 
 function cleanInput() {
   for(let i=0; i<currentMovie.actors.length; i++) {
@@ -265,7 +277,7 @@ function searchMovieByTitle(title, param) {
   fetch(apiUrl)
     .then(function(response) {
       if (response.status !== 200) {
-        throw new Error('Forecast Weather status is not 200 OK');
+        throw new Error('Movie Invalid status is not 200 OK');
       }
       return response.json();
     })
@@ -360,31 +372,26 @@ function getMovieResults() {
 
 }
 
-// End of code KB
-
-// Start of code TP
 
 function openModal(drinkModal) {
   drinkModal.classList.add('is-active')
-  }
+}
 
-  function openModal(movieModal) {
-    movieModal.classList.add('is-active');
-  }
+function openModal(movieModal) {
+  movieModal.classList.add('is-active');
+}
 
-  function closeModal(modal) {
-    modal.classList.remove('is-active');
-  }
+function closeModal(modal) {
+  modal.classList.remove('is-active');
+}
 
-  modalEls.forEach(function (x) {
-    x.addEventListener('click', () => {
-      closeModal(drinkModal);
-      closeModal(movieModal);
-      closeModal(faveDrinkModal);
-    })
+modalEls.forEach(function (x) {
+  x.addEventListener('click', () => {
+    closeModal(drinkModal);
+    closeModal(movieModal);
+    closeModal(faveDrinkModal);
   })
-
-// End of code TP
+})
 
 //This function will initialize the ordinary drink list
 function init() {
@@ -398,5 +405,5 @@ movieFormEl.addEventListener('submit', function (event){
 
 init();
 
-
+setFavoriteDrinks();
 

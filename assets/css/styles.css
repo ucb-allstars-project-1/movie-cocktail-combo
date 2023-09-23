@@ -95,6 +95,12 @@ input {
     justify-content: center;
 }
 
+#drink-ingredients {
+    padding-top: 2%;
+}
+
+
+
 .modal-card {
     display: flex;
     flex-direction: column;

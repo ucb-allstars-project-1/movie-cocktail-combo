@@ -55,9 +55,8 @@
                     <div id="drink-main" class="is-flex is-justify-content-center py-4">
                         <p id="drink-name" class="title has-text-danger-light pr-3 mb-0">Dirty Martini</p>
                         <label id="check-here">
-                            <input id="checkbox" type="checkbox">
-                            <div class="star-detail pl-1">
-                                <i class="fa-solid fa-star fa-beat" style="color: #8a0f0f"></i>
+                            <div id="checkbox" class="star-detail pl-1">
+                                <i class="fa-solid fa-star fa-beat" style="color: var(--red-header-text)"></i>
                             </div>
                             <a href="#favorite-cocktails">Favorite</a>
                         </label>
@@ -107,8 +106,9 @@
 
         <!-- below is the saved cocktail box -->
         <div id="favorites-box" class="box m-5 is-flex columns is-flex-direction-column p-2">
-            <div class="column pt-0">
-                <p id="favorites-title" class="title has-text-dark">Cocktail Favorites</p>
+            <div class="column pt-1 is-flex is-justify-content-center">
+                <p id="favorites-title" class="title has-text-dark m-0">Cocktail Favorites</p>
+                <button id="clear-box" class="is-auto ml-5"> Clear </button>
             </div>
             <div id="favorite-cocktails" class="column is-half is-offset-3 is-hidden-mobile"></div>
         </div>
