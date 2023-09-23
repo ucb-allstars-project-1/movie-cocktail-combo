@@ -106,11 +106,12 @@
 
         <!-- below is the saved cocktail box -->
         <div id="favorites-box" class="box m-5 is-flex columns is-flex-direction-column p-2">
-            <div class="column pt-1 is-flex is-justify-content-center">
+            <div class="pt-1 is-flex is-justify-content-center">
                 <p id="favorites-title" class="title has-text-dark m-0">Cocktail Favorites</p>
                 <button id="clear-box" class="is-auto ml-5"> Clear </button>
             </div>
-            <div id="favorite-cocktails" class="column is-half is-offset-3 is-hidden-mobile"></div>
+            <div id="favorite-cocktails" class="py-3 px-2 is-hidden-mobile"
+            style="overflow-x: auto; white-space: nowrap;"></div>
         </div>
     </main>
     <footer class="is-flex is-justify-content-center has-text-danger-light pb-5">

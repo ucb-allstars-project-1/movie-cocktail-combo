@@ -167,6 +167,10 @@ function setFavoriteDrinks() {
 
   if (drinkHistory !== null) {
     
+    if(drinkHistory.length == 0 && !clearBox.classList.contains("is-hidden")){
+      clearBox.classList.toggle("is-hidden");
+    }
+
     if(drinkHistory.length > 0 && clearBox.classList.contains("is-hidden")) {
       clearBox.classList.toggle("is-hidden");
     }
@@ -243,20 +247,16 @@ function setFavoriteDrinks() {
 }
 
 
-
-
-
 checkBox.addEventListener("click", function(event) {
   event.preventDefault();
   saveCurrentDrink();
   setFavoriteDrinks();
 })
 
-clearBox.addEventListener("click", function() {
+clearBox.addEventListener("click", function(event) {
+  event.stopPropagation();
   localStorage.setItem("storeDrinks", "[]");
   setFavoriteDrinks();
-  console.log(this);
-  this.classList.toggle("is-hidden");
 })
 
 
@@ -391,6 +391,10 @@ modalEls.forEach(function (x) {
     closeModal(movieModal);
     closeModal(faveDrinkModal);
   })
+})
+
+document.querySelector("#favorites-box").addEventListener("click", function() {
+  console.log("test");
 })
 
 //This function will initialize the ordinary drink list

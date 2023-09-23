@@ -63,7 +63,8 @@ input {
 }
 
 #favorite-cocktails a {
-    display: block;
+    display: inline;
+    margin: 0.5%;
 }
 
 .kb-rounded {
