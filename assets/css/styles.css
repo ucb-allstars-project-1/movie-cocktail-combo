@@ -40,7 +40,8 @@ main {
 
 #drink-img-dim {
     max-height: 445px;
-    max-width: 80%;
+    width: 80%;
+    max-width: 572px;
 }
 
 input {
@@ -82,7 +83,7 @@ input {
 #check-here {
     position: absolute;
     top: 5%;
-    right: 15%;
+    right: 10%;
 }
 
 #check-here a {
