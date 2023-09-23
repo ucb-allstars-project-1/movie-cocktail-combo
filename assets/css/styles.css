@@ -57,6 +57,7 @@ input {
 
 #favorites-box {
     background-color: var(--light-pink);
+    box-shadow: 5px 8px var(--red-header-text);
 }
 
 #favorite-cocktails {
@@ -78,6 +79,7 @@ input {
     border: 3px solid var(--light-pink);
     background-color: var(--light-pink);
     color: var(--dark-contrast);
+    box-shadow: 5px 8px var(--red-header-text);
 }
 
 .columns {
@@ -99,6 +101,10 @@ input {
 
 #drink-ingredients {
     padding-top: 2%;
+}
+
+#movie-photo, #drink-img {
+    box-shadow: 3px 4px var(--red-header-text);
 }
 
 
