@@ -335,13 +335,13 @@ function searchMovies(title) {
 }
 
 function showCurrentPoster() {
-  $("#movie-photo").attr("src", currentMovie.poster);
-  $("#movie-title-text").text(currentMovie.title);
-  $("#movie-genre").text("Genre: " + currentMovie.genre);
-  $("#movie-rated").text("Rated: " + currentMovie.rated);
-  $("#movie-director").text("Director: " + currentMovie.director);
-  $("#movie-actors").text("Actors: " + currentMovie.actors);
-  $("#movie-awards").text("Awards: " + currentMovie.awards);
+  document.querySelector("#movie-photo").setAttribute("src", currentMovie.poster);
+  document.querySelector("#movie-title-text").textContent = (currentMovie.title);
+  document.querySelector("#movie-genre").textContent = ("Genre: " + currentMovie.genre);
+  document.querySelector("#movie-rated").textContent = ("Rated: " + currentMovie.rated);
+  document.querySelector("#movie-director").textContent = ("Director: " + currentMovie.director);
+  document.querySelector("#movie-actors").textContent = ("Actors: " + currentMovie.actors);
+  document.querySelector("#movie-awards").textContent = ("Awards: " + currentMovie.awards);
 }
 
 function showSimilarPosters() {
