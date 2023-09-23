@@ -23,7 +23,7 @@ To develop this website, We used the following technologies:
     - OMDB API (Movie Reference): https://www.omdbapi.com/     
     - CocktailDB API (Cocktail Reference): https://www.thecocktaildb.com/api.php                           
     - Bulma: https://bulma.io/  
-    - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch
+    - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch   
     - Font Awesome: https://fontawesome.com/
 
 

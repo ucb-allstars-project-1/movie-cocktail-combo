@@ -113,8 +113,8 @@ input {
 .modal-image-display {
     display: flex;
     align-self: center;
-    height: 75%;
-    width: 75%;
+    max-height: 75%;
+    max-width: 75%;
 }
 
 #modal-ingredients {
