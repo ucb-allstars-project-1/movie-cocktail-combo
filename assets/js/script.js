@@ -146,6 +146,7 @@ function showCurrentDrink(){
   drinkImgEl.setAttribute("src", currentDrink.imageUrl);
   drinkInstructionsEl.textContent = currentDrink.instructions;
   drinkIngredientsEl.textContent = createIngredientsAndMeasuresSideBySide();
+  setCheckBox();
 }
 
 function setCheckBox() {
@@ -198,7 +199,6 @@ function setFavoriteDrinks() {
       
 
       savedDrinks.addEventListener('click', () => {
-        faveDrinkModal.classList.add('is-active');
       
         let drinkTitle = savedDrinks.textContent;
         //console.log(drinkTitle);
@@ -253,10 +253,12 @@ function setFavoriteDrinks() {
             }
 
             modalDrinks();
+            faveDrinkModal.classList.add('is-active');
           })
           .catch(function(error) {
             console.log(error);
           });
+          
       })
     }
   }
@@ -389,12 +391,8 @@ function getMovieResults() {
 }
 
 
-function openModal(drinkModal) {
-  drinkModal.classList.add('is-active')
-}
-
-function openModal(movieModal) {
-  movieModal.classList.add('is-active');
+function openModal(modal) {
+  modal.classList.add('is-active');
 }
 
 function closeModal(modal) {
@@ -409,19 +407,83 @@ modalEls.forEach(function (x) {
   })
 })
 
-document.querySelector("#favorites-box").addEventListener("click", function() {
-  console.log("test");
-})
-
 //This function will initialize the ordinary drink list
 function init() {
   getOrdinaryDrinks();
 }
 
+document.querySelector("#favorites-box").addEventListener("click", function() {
+  console.log("test");
+})
+
+
 movieFormEl.addEventListener('submit', function (event){ 
   event.preventDefault();
   getMovieResults();
 });
+
+document.querySelector("#drink-img").addEventListener('click', () => {
+      
+  let drinkTitle = document.getElementById("drink-name").textContent;
+  //console.log(drinkTitle);
+  let drinkURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkTitle;
+
+  fetch(drinkURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+
+      function modalDrinks() {
+        
+        const displayName = document.getElementById("modal-title");
+        const displayImage = document.getElementById("modal-image-display");
+        const displayIngredients = document.getElementById("modal-ingredients");
+        const displayMeasurements = document.getElementById("modal-measurements");
+        const displayInstructions = document.getElementById("modal-instructions");
+
+        let drinkName = data.drinks[0].strDrink;
+        //console.log(drinkName);
+        let drinkImage = data.drinks[0].strDrinkThumb;
+
+        let ingredientsArray = []
+
+        for (i = 0; i < 16; i++) {
+          if (data.drinks[0]["strIngredient" + (i+1)]) {
+            ingredientsArray.push(data.drinks[0]["strIngredient" + (i+1)])
+          }
+        }
+
+        console.log(ingredientsArray);
+        let drinkIngredients = "Ingredients: " + ingredientsArray.join(", ");
+
+        let measurementArray = []
+
+        for (i = 0; i < 16; i++) {
+          if (data.drinks[0]["strMeasure" + (i+1)]) {
+            measurementArray.push(data.drinks[0]["strMeasure" + (i+1)])
+          }
+        }
+
+        let drinkMeasurements = "Measurements: " + measurementArray.join(", ");
+        let drinkInstructions = data.drinks[0].strInstructions;
+
+        displayName.textContent = drinkName; 
+        displayImage.src = drinkImage;
+        displayIngredients.textContent = drinkIngredients;
+        displayMeasurements.textContent = drinkMeasurements;
+        displayInstructions.textContent = drinkInstructions;
+      }
+
+      modalDrinks();
+      faveDrinkModal.classList.add('is-active');
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+    
+})
 
 init();
 
