@@ -97,7 +97,10 @@ function createIngredientsAndMeasuresSideBySide(){
         :ingredientsAndMeasures + ` ${ingredients[i]},`;
     }
   }
-  return ingredientsAndMeasures;
+
+  console.log(ingredientsAndMeasures);
+  
+  return ingredientsAndMeasures.slice(0, -2);
 }
 
 // Made a request to select a drink by id
