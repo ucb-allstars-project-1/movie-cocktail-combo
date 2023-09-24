@@ -167,7 +167,7 @@ function setCheckBox() {
 function toggleCurrentDrink() {
   const drink = document.getElementById("drink-name").textContent;
   const drinkURL = document.getElementById("drink-img").getAttribute("src");
-  console.log(drinkURL);
+  // console.log(drinkURL);
 
   const drinkInfo = {
     "name" : drink,
@@ -190,10 +190,14 @@ function toggleCurrentDrink() {
 function createMiniCard(title) {
   miniCard = document.createElement("div");
   miniCard.classList.add("card", "m-1");
+  miniCard.style.cssText = `
+    box-shadow: 2px 3px var(--red-header-text);
+  `;
 
   cardImgContainer = document.createElement("div");
   cardImgContainer.classList.add("card-image");
   cardFigure = document.createElement("figure");
+  cardFigure.classList.add("is-4by3");
   cardFigure.classList.add("image");
   cardImg = document.createElement("img");
   cardImg.setAttribute("src", title.url);
@@ -203,10 +207,12 @@ function createMiniCard(title) {
 
   cardContent = document.createElement("div");
   cardContent.classList.add("card-content");
+  cardContent.style.cssText = `background-color: var(--dark-contrast);`;
   mediaContent = document.createElement("div");
   mediaContent.classList.add("media-content");
   movieTitle = document.createElement("p");
   movieTitle.classList.add("title", "is-5");
+  movieTitle.style.cssText = `color: var(--light-pink);`;
   movieTitle.textContent = title.name;
   mediaContent.appendChild(movieTitle);
   cardContent.appendChild(mediaContent);
