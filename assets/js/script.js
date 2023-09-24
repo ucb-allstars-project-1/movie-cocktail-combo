@@ -155,7 +155,7 @@ function showCurrentDrink(){
 function setCheckBox() {
   const drink = document.getElementById("drink-name").textContent;
   const star = document.querySelector("#checkbox i");
-  if(drinkHistory.indexOf(drink) == -1) {
+  if(!drinkHistory.some(item => item["name"] === drink)) { // drinkHistory.indexOf(drink) == -1
     checkBox.style.backgroundColor = "var(--light-pink)";
     star.style.color = "var(--red-header-text)";
   } else {
@@ -166,17 +166,53 @@ function setCheckBox() {
 
 function toggleCurrentDrink() {
   const drink = document.getElementById("drink-name").textContent;
-  //console.log(drink);
+  const drinkURL = document.getElementById("drink-img").getAttribute("src");
+  console.log(drinkURL);
+
+  const drinkInfo = {
+    "name" : drink,
+    "url" : drinkURL
+  }
   
   drinkHistory = JSON.parse(localStorage.getItem("storeDrinks")) || [];
+
+  // drinkHistory.push(drinkInfo);
   
-  if(drinkHistory.indexOf(drink) == -1) {
-    drinkHistory.push(drink);
+  if(!drinkHistory.some(item => item["name"] === drink)) {
+    drinkHistory.push(drinkInfo);
   } else {
-    drinkHistory = drinkHistory.filter(item => item !== drink);
+    drinkHistory = drinkHistory.filter(item => item.name !== drink);
   }
 
   localStorage.setItem("storeDrinks", JSON.stringify(drinkHistory));
+}
+
+function createMiniCard(title) {
+  miniCard = document.createElement("div");
+  miniCard.classList.add("card", "m-1");
+
+  cardImgContainer = document.createElement("div");
+  cardImgContainer.classList.add("card-image");
+  cardFigure = document.createElement("figure");
+  cardFigure.classList.add("image");
+  cardImg = document.createElement("img");
+  cardImg.setAttribute("src", title.url);
+  cardFigure.appendChild(cardImg);
+  cardImgContainer.appendChild(cardFigure);
+  miniCard.appendChild(cardImgContainer);
+
+  cardContent = document.createElement("div");
+  cardContent.classList.add("card-content");
+  mediaContent = document.createElement("div");
+  mediaContent.classList.add("media-content");
+  movieTitle = document.createElement("p");
+  movieTitle.classList.add("title", "is-5");
+  movieTitle.textContent = title.name;
+  mediaContent.appendChild(movieTitle);
+  cardContent.appendChild(mediaContent);
+  miniCard.appendChild(cardContent);
+
+  return miniCard; 
 }
 
 function setFavoriteDrinks() {
@@ -196,8 +232,7 @@ function setFavoriteDrinks() {
     }
 
     for (let i = 0; i < drinkHistory.length; i++) {
-      let savedDrinks = document.createElement("a");
-      savedDrinks.textContent = drinkHistory[i];
+      let savedDrinks = createMiniCard(drinkHistory[i]);
       drinkStorage.appendChild(savedDrinks);
       
 
@@ -267,18 +302,6 @@ function setFavoriteDrinks() {
   }
 }
 
-
-checkBox.addEventListener("click", function(event) {
-  event.preventDefault();
-  toggleCurrentDrink();
-  setFavoriteDrinks();
-})
-
-clearBox.addEventListener("click", function(event) {
-  event.stopPropagation();
-  localStorage.setItem("storeDrinks", "[]");
-  setFavoriteDrinks();
-})
 
 
 
@@ -417,6 +440,19 @@ function init() {
 
 document.querySelector("#favorites-box").addEventListener("click", function() {
   console.log("test");
+})
+
+
+checkBox.addEventListener("click", function(event) {
+  event.preventDefault();
+  toggleCurrentDrink();
+  setFavoriteDrinks();
+})
+
+clearBox.addEventListener("click", function(event) {
+  event.stopPropagation();
+  localStorage.setItem("storeDrinks", "[]");
+  setFavoriteDrinks();
 })
 
 
