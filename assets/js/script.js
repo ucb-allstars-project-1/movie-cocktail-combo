@@ -111,6 +111,7 @@ function searchDrinkById(drinkId) {
 
   fetch(apiUrl)
     .then(function (response) {
+      // throw new Error('Cocktail Drink status is not 200 OK');
       if (response.ok) {
         response.json().then(function (data) {
           let drink = data.drinks[0];
@@ -124,7 +125,7 @@ function searchDrinkById(drinkId) {
           showCurrentDrink();
         })
       } else {
-        throw new Error('MovieMix & Sip status is not 200 OK');
+        throw new Error('Cocktail Drink status is not 200 OK');
       }
     })
     .catch(function (error) {
@@ -333,6 +334,7 @@ function searchMovieByTitle(title, param) {
       if (response.status !== 200) {
         throw new Error('Movie Invalid status is not 200 OK');
       }
+      // throw new Error('Movie Invalid status is not 200 OK');
       return response.json();
     })
     .then(function (data) {
