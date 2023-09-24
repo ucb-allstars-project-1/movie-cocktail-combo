@@ -338,8 +338,11 @@ function searchMovieByTitle(title, param) {
       return response.json();
     })
     .then(function (data) {
-      if (data.Response === "False") {
-        throw new Error("Not a valid movie")
+      if(data.Response === "False") {
+        throw new Error("Not a valid movie");
+      }
+      if(data.Poster === "N/A") {
+        throw new Error("Missing movie details");
       }
       // console.log(data);
       currentMovie.actors = data.Actors;
