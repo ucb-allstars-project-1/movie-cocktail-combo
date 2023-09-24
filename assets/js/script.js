@@ -102,7 +102,7 @@ function createIngredientsAndMeasuresSideBySide() {
 
   console.log(ingredientsAndMeasures);
 
-  return ingredientsAndMeasures.slice(0, -2);
+  return ingredientsAndMeasures.trim().slice(0, -1);
 }
 
 // Made a request to select a drink by id
