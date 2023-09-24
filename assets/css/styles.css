@@ -3,6 +3,7 @@
     --dark-contrast: #4a4a4a;
     --red-header-text: #8a0f0f;
     --yellow-check-box: rgb(237, 237, 13);
+    --cherry-red: #c74646;
 }
 
 main {
@@ -116,8 +117,34 @@ input {
 }
 
 .outlined-text {
-    -webkit-text-stroke: 1px black; /* Text outline with a 2px black stroke */
+    -webkit-text-stroke: 1px black;
+    /* Text outline with a 2px black stroke */
     text-stroke: 1px black;
+}
+
+#clear-box {
+    background-color: var(--light-pink);
+    color: var(--cherry-red);
+    border: 1px solid var(--light-pink);
+    border-radius: 5px;
+}
+
+#clear-box:hover {
+    background-color: var(--cherry-red);
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+
+    /* Styles for smaller screens */
+    #clear-box {
+        background-color: var(--cherry-red);
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
 }
 
 
