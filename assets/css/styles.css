@@ -151,6 +151,7 @@ input {
 .modal-card {
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
 }
 
 .modal-card-head {
@@ -172,6 +173,8 @@ input {
     align-self: center;
     max-height: 75%;
     max-width: 75%;
+    border-radius: 10px;
+    border: 3px solid var(--light-pink);
 }
 
 #modal-ingredients {
@@ -187,4 +190,27 @@ input {
 #modal-instructions {
     display: flex;
     align-self: center;
+}
+
+.modal-custom-header {
+    background-color: var(--cherry-red) !important;
+}
+
+.modal-custom-title {
+    color: var(--light-pink) !important;
+    font-weight: 600;
+}
+
+.modal-custom-body {
+    background-color: var(--dark-contrast) !important;
+}
+
+#modal-title {
+
+}
+
+.modal-text {
+    background-color: var(--light-pink) !important;
+    margin-top: 5%;
+    padding: 0 3% 2%;
 }

@@ -12,13 +12,18 @@
 <body class="has-background-dark">
     <header class="header">
         <div class="app-title">
-            <h1 class="is-size-3 has-text-weight-semibold is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">MovieMix
+            <h1
+                class="is-size-3 has-text-weight-semibold is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">
+                MovieMix
             </h1>
             <div id="sub-app-title" class="is-flex is-flex-direction-row is-justify-content-between">
                 <h1 id="and"
-                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">&
+                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">
+                    &
                 </h1>
-                <h1 class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">Sip
+                <h1
+                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">
+                    Sip
                 </h1>
             </div>
         </div>
@@ -122,11 +127,11 @@
         <!-- below is the saved cocktail box -->
         <div id="favorites-box" class="box m-5 is-flex columns is-flex-direction-column p-2">
             <div class="pt-1 is-flex is-justify-content-center">
-                <p id="favorites-title" class="title m-0 outlined-text" style="color: var(--red-header-text);">Cocktail Favorites</p>
+                <p id="favorites-title" class="title m-0 outlined-text" style="color: var(--red-header-text);">Cocktail
+                    Favorites</p>
                 <button id="clear-box" class="is-auto is-size-6 px-2 ml-5"> Clear </button>
             </div>
-            <div id="favorite-cocktails" class="py-3 px-2 is-flex"
-                style="overflow-x: auto; white-space: pre;"></div>
+            <div id="favorite-cocktails" class="py-3 px-2 is-flex" style="overflow-x: auto; white-space: pre;"></div>
         </div>
     </main>
     <footer class="is-flex is-justify-content-center has-text-danger-light pb-5">
@@ -164,15 +169,17 @@
     <div class="modal" id="fave-drink-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
-            <header class="modal-card-head">
-                <p id="modal-title" class="modal-card-title">Drink Name</p>
+            <header class="modal-card-head modal-custom-header">
+                <p id="modal-title" class="modal-card-title modal-custom-title is-size-1 outlined-text">Drink Name</p>
                 <button class="delete" aria-label="close"></button>
             </header>
-            <section class="modal-card-body">
+            <section class="modal-card-body modal-custom-body">
                 <img id="modal-image-display" class="modal-image-display">
-                <p id="modal-ingredients" class="pt-2">Ingredients</p>
-                <p id="modal-measurements">Measurements</p>
-                <p id="modal-instructions" class="pt-2">Instructions</p>
+                <div id="" class="modal-text">
+                    <p id="modal-ingredients" class="pt-2">Ingredients</p>
+                    <p id="modal-measurements">Measurements</p>
+                    <p id="modal-instructions" class="pt-2">Instructions</p>
+                </div>
             </section>
         </div>
     </div>
@@ -180,13 +187,20 @@
     <div class="modal" id="movie-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
-            <header class="modal-card-head">
-                <p id="modal-movie-title" class="modal-card-title">Movie Name</p>
+            <header class="modal-card-head modal-custom-header">
+                <p id="modal-movie-title" class="modal-card-title modal-custom-title is-size-2">Movie Name</p>
                 <button class="delete" aria-label="close"></button>
             </header>
-            <section class="modal-card-body">
-                <img id="modal-movie-image-display" class="modal-image-display">
-
+            <section class="modal-card-body modal-custom-body">
+                <img id="modal-image-movie" class="modal-image-display">
+                <div id="" class="modal-text">
+                    <p id="modal-genre" class="">Genre: Action, Adventure, Thriller</p>
+                    <p id="modal-rated" class="">Rated: PG-13</p>
+                    <p id="modal-director" class="">Director: Sam Mendes</p>
+                    <p id="modal-actors" class="">Actors: Daniel Craig, Javier Bardem, Naomie Harris</p>
+                    <p id="modal-awards" class="">Awards: Won 2 Oscars, 69 wins & 123 nominations total
+                    </p>
+                </div>
             </section>
         </div>
     </div>
