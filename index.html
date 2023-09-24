@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/images/james-bond-martini.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <title>MovieMix + Sip</title>
+    <title>MovieMix & Sip</title>
 </head>
+
 <body class="has-background-dark">
     <header class="header">
         <div class="app-title">
-            <h1 class="is-size-3 has-text-weight-semibold">MovieMix</h1>
-            <h1 id="and" class="is-size-3 has-text-weight-semibold">&</h1>
-            <h1 class="is-size-3 has-text-weight-semibold">Sip</h1>
+            <h1
+                class="is-size-3 has-text-weight-semibold is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">
+                MovieMix
+            </h1>
+            <div id="sub-app-title" class="is-flex is-flex-direction-row is-justify-content-between">
+                <h1 id="and"
+                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">
+                    &
+                </h1>
+                <h1
+                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">
+                    Sip
+                </h1>
+            </div>
         </div>
         <figure class="image is-128x128 is-flex-shrink is-align-self-center">
             <img id="james-bond" class="is-rounded" src="assets/images/james-bond-martini.png">
@@ -34,111 +48,166 @@
                 </div>
             </form>
         </div>
+
+        <div class="">
+            <div class="columns">
+                <div class="column p-0-mobile is-half is-vcentered">
+                    <!-- below is the box for the movie poster -->
+                    <div class="movie-poster is-flex is-justify-content-center">
+                        <img id="movie-photo" class="kb-rounded"
+                            src="https://m.media-amazon.com/images/M/MV5BMWZiNjE2OWItMTkwNy00ZWQzLWI0NTgtMWE0NjNiYTljN2Q1XkEyXkFqcGdeQXVyNzAwMjYxMzA@._V1_SX300.jpg">
+                    </div>
+                    <p id="movie-title-text" class="title has-text-danger-light py-4 ">Skyfall</p>
+                </div>
+
+                <div class="column p-0-mobile is-half is-flex is-flex-direction-column is-justify-content-center">
+                    <!-- below is the cocktail photo -->
+                    <div class="movie-poster is-flex is-justify-content-center is-flex-grow-1">
+                        <div id="drink-img-dim" class="is-relative is-flex is-justify-content-center">
+                            <img id="drink-img" class="kb-rounded"
+                                src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
+                            <label id="check-here" class="">
+                                <div id="checkbox" class="star-detail px-1">
+                                    <i class="fa-solid fa-star fa-beat" style="color: var(--red-header-text)"></i>
+                                </div>
+                                <a class="is-hidden" href="#favorite-cocktails">Favorite</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="drink-main" class="is-flex is-justify-content-center py-4">
+                        <p id="drink-name" class="title has-text-danger-light pr-3 mb-0">Dirty Martini</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="columns">
             <!-- below is the movie box -->
-            <div id="movie-box" class="column is-half">
-                <!-- below is the box for the movie poster -->
-                <div class="movie-poster is-flex is-justify-content-center">
-                    <img id="movie-photo" src="https://m.media-amazon.com/images/M/MV5BMWZiNjE2OWItMTkwNy00ZWQzLWI0NTgtMWE0NjNiYTljN2Q1XkEyXkFqcGdeQXVyNzAwMjYxMzA@._V1_SX300.jpg">
-                </div>
+            <div id="movie-box" class="column is-hidden-mobile is-half is-flex is-justify-content-center">
+
                 <!-- below is the movie information -->
-                <div class="movie-text p-6">
-                    <p id="movie-title-text" class="title has-text-danger-light">Skyfall</p>
-                    <p id="movie-genre" class="genre pt-4">Genre: Action, Adventure, Thriller</p>
-                    <p id="movie-rated" class="rated pt-4">Rated: PG-13</p>
-                    <p id="movie-director" class="director pt-4">Director: Sam Mendes</p>
-                    <p id="movie-actors" class="actors pt-4">Actors: Daniel Craig, Javier Bardem, Naomie Harris</p>
-                    <p id="movie-awards" class="awards pt-4">Awards: Won 2 Oscars, 69 wins & 123 nominations total</p>
+                <div class="movie-text px-auto mx-3 is-flex">
+
+                    <div class="detail-container px-3 pb-4 is-flex-grow-1" id="movie-details">
+                        <p id="movie-genre" class="genre pt-4">Genre: Action, Adventure, Thriller</p>
+                        <p id="movie-rated" class="rated pt-4">Rated: PG-13</p>
+                        <p id="movie-director" class="director pt-4">Director: Sam Mendes</p>
+                        <p id="movie-actors" class="actors pt-4">Actors: Daniel Craig, Javier Bardem, Naomie Harris</p>
+                        <p id="movie-awards" class="awards pt-4">Awards: Won 2 Oscars, 69 wins & 123 nominations total
+                        </p>
+                    </div>
                 </div>
             </div>
             <!-- below is the cocktail box -->
-            <div id="cocktail-box" class="column is-half">
-                <!-- below is the cocktail photo -->
-                <div id="cocktail-photo" class="is-flex is-justify-content-center">
-                    <img id="drink-img" src="https:\/\/www.thecocktaildb.com\/images\/media\/drink\/6ck9yi1589574317.jpg">
-                </div>
-                <!-- below is the cocktail recipe -->
-                <div class="cocktail-recipe p-6">
+            <div id="cocktail-box" class="column is-half is-hidden-mobile is-flex is-justify-content-center">
 
-                    <div class="is-flex is-justify-content-center">
-                        <p id="drink-name" class="title has-text-danger-light pr-3">Dirty Martini</p>
-                        <label id="check-here">
-                            <input id="checkbox" type="checkbox">
-                            <i class="fa-solid fa-star fa-beat" style="color: #8a0f0f;"></i>
-                            <a href="#favorite-cocktails">Favorite</a>
-                        </label>
-                    </div>
-                    <div id="ingredients-measurements">
-                        <p id="drink-ingredients">Ingredients: 70ml Vodka, 1 Tbsp Dry Vermouth, 2 Tbsp Olive Brine, 1 Lemon Wedge, 1 Olive</p>
-                        <p id="drink-measurements"></p>
-                    </div>
-                    <div id="drink-instructions" class="instructions pt-4">
-                        <p>Pour the vodka, dry vermouth and olive brine into a cocktail shaker with a handful of ice and shake well.</p>
-                        <p>Rub the rim of a martini glass with the wedge of lemon.</p>
-                        <p>Strain the contents of the cocktail shaker into the glass and add the olive.</p>
-                        <p>Dirty Martini contains a splash of olive brine or olive juice and is typically garnished with an olive.</p>
+                <!-- below is the cocktail recipe -->
+                <div class="cocktail-recipe px-auto ml-3 mr-6 is-flex">
+
+
+                    <div id="drink-details"
+                        class="detail-container is-flex is-flex-direction-column is-flex-grow-1 py-auto px-2">
+                        <div id="ingredients-measurements">
+                            <p id="drink-ingredients">Ingredients: 70ml Vodka, 1 Tbsp Dry Vermouth, 2 Tbsp Olive Brine,
+                                1 Lemon Wedge, 1 Olive</p>
+                            <p id="drink-measurements"></p>
+                        </div>
+                        <div id="drink-instructions" class="instructions pt-4">
+                            <p>Pour the vodka, dry vermouth and olive brine into a cocktail shaker with a handful of ice
+                                and shake well.</p>
+                            <p>Rub the rim of a martini glass with the wedge of lemon.</p>
+                            <p>Strain the contents of the cocktail shaker into the glass and add the olive.</p>
+                            <p>Dirty Martini contains a splash of olive brine or olive juice and is typically garnished
+                                with an olive.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- below is the saved cocktail box -->
-        <div id="favorites-box" class="box m-6 is-flex columns">
-            <div class="column">
-                <p id="favorites-title" class="title has-text-dark p-6">Cocktail Favorites</p>
-                <div class="columns is-mobile">
-                    <div id="favorite-cocktails" class="column is-half is-offset-3"></div>
-                </div>
+        <div id="favorites-box" class="box m-5 is-flex columns is-flex-direction-column p-2">
+            <div class="pt-1 is-flex is-justify-content-center">
+                <p id="favorites-title" class="title m-0 outlined-text" style="color: var(--red-header-text);">Cocktail
+                    Favorites</p>
+                <button id="clear-box" class="is-auto is-size-6 px-2 ml-5"> Clear </button>
             </div>
+            <div id="favorite-cocktails" class="py-3 px-2 is-flex" style="overflow-x: auto; white-space: pre;"></div>
         </div>
     </main>
     <footer class="is-flex is-justify-content-center has-text-danger-light pb-5">
-        <p>This web application was developed in collaboration with Madison Eckstrom, Tabbatha Pischke, Solange Indaco, and Koby Barrett.™</p>
+        <p class="has-text-centered px-3">This web application was developed in collaboration with Madison Eckstrom,
+            Tabbatha Pischke, Solange Indaco, and Koby Barrett.™</p>
     </footer>
+
     <!-- Modal for movie error -->
     <div class="modal" id="movie-error">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">ERROR</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <p>Movie data could not be retrieved. Please try again.</p>
-          </section>
+            <header class="modal-card-head modal-error-header">
+                <p class="modal-card-title" style="color: var(--cherry-red); font-weight: 600;">ERROR</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body modal-error-body">
+                <p style="text-align: center;">Movie data could not be retrieved. Please try again.</p>
+            </section>
         </div>
-      </div>
-      <!-- Modal for drink error -->
-      <div class="modal" id="drink-error">
+    </div>
+    <!-- Modal for drink error -->
+    <div class="modal" id="drink-error">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">ERROR</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <p>Drink data could not be retrieved. Please try again.</p>
-          </section>
+            <header class="modal-card-head modal-error-header">
+                <p class="modal-card-title" style="color: var(--cherry-red); font-weight: 600;">ERROR</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body modal-error-body">
+                <p style="text-align: center;">Drink data could not be retrieved. Please try again.</p>
+            </section>
         </div>
-      </div>
-      <!-- Modal for favorite drinks -->
-      <div class="modal" id="fave-drink-modal">
+    </div>
+    <!-- Modal for favorite drinks -->
+    <div class="modal" id="fave-drink-modal">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p id="modal-title" class="modal-card-title">Drink Name</p>
-            <button class="delete" aria-label="close"></button>
-          </header>
-          <section class="modal-card-body">
-            <img id="modal-image-display" class="modal-image-display">
-            <p id="modal-ingredients" class="pt-2">Ingredients</p>
-            <p id="modal-measurements">Measurements</p>
-            <p id="modal-instructions" class="pt-2">Instructions</p>
-          </section>
+            <header class="modal-card-head modal-custom-header">
+                <p id="modal-title" class="modal-card-title modal-custom-title is-size-1 outlined-text">Drink Name</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body modal-custom-body">
+                <img id="modal-image-display" class="modal-image-display">
+                <div id="" class="modal-text">
+                    <p id="modal-ingredients" class="pt-2">Ingredients</p>
+                    <p id="modal-measurements">Measurements</p>
+                    <p id="modal-instructions" class="pt-2">Instructions</p>
+                </div>
+            </section>
         </div>
-      </div>
+    </div>
+    <!-- Modal for current movie -->
+    <div class="modal" id="movie-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head modal-custom-header">
+                <p id="modal-movie-title" class="modal-card-title modal-custom-title is-size-1 outlined-text">Movie Name</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body modal-custom-body">
+                <img id="modal-image-movie" class="modal-image-display">
+                <div id="" class="modal-text">
+                    <p id="modal-genre" class="">Genre: Action, Adventure, Thriller</p>
+                    <p id="modal-rated" class="">Rated: PG-13</p>
+                    <p id="modal-director" class="">Director: Sam Mendes</p>
+                    <p id="modal-actors" class="">Actors: Daniel Craig, Javier Bardem, Naomie Harris</p>
+                    <p id="modal-awards" class="">Awards: Won 2 Oscars, 69 wins & 123 nominations total
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/2c01b6d243.js" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

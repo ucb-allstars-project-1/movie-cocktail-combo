@@ -1,3 +1,11 @@
+:root {
+    --light-pink: #e6dedd;
+    --dark-contrast: #4a4a4a;
+    --red-header-text: #8a0f0f;
+    --yellow-check-box: rgb(237, 237, 13);
+    --cherry-red: #c74646;
+}
+
 main {
     text-align: center;
 }
@@ -5,7 +13,7 @@ main {
 .header {
     display: flex;
     justify-content: center;
-    background-color: #e6dedd;
+    background-color: var(--light-pink);
 }
 
 .app-title {
@@ -19,20 +27,64 @@ main {
     color: #8a0f0f;
 }
 
+#sub-app-title {
+    justify-content: space-around;
+}
+
 #and {
     color: #c22828;
 }
 
 #james-bond {
-    flex-direction: right;
+    border: 3px solid var(--red-header-text);
 }
 
-#drink-img {
+#drink-img-dim {
     max-height: 445px;
+    width: 80%;
+    max-width: 572px;
 }
 
 input {
-    accent-color: #e6dedd;
+    accent-color: var(--light-pink);
+}
+
+#favorites-box {
+    background-color: var(--light-pink);
+    box-shadow: 5px 8px var(--red-header-text);
+}
+
+#favorite-cocktails {
+    background-color: var(--light-pink);
+}
+
+#favorite-cocktails a {
+    display: inline;
+    margin: 0.5%;
+}
+
+.kb-rounded {
+    border-radius: 15px;
+    border: 3px solid var(--light-pink);
+}
+
+.detail-container {
+    border-radius: 15px;
+    border: 3px solid var(--light-pink);
+    background-color: var(--light-pink);
+    color: var(--dark-contrast);
+    box-shadow: 5px 8px var(--red-header-text);
+}
+
+.columns {
+    margin-left: 0rem !important;
+    margin-right: 0rem !important;
+}
+
+#check-here {
+    position: absolute;
+    top: 5%;
+    right: 10%;
 }
 
 #check-here a {
@@ -43,21 +95,63 @@ input {
     color: #8a0f0f
 }
 
-#favorites-box {
-    background-color: #e6dedd;
+#check-here>* {
+    display: inline;
 }
 
-#favorite-cocktails {
-    background-color: #e6dedd;
+.star-detail {
+    background-color: var(--light-pink);
+    border: 1px solid var(--dark-contrast);
+    border-radius: 5px;
+    display: inline-flex;
+    justify-content: center;
 }
 
-#favorite-cocktails a {
-    display: block;
+#drink-ingredients {
+    padding-top: 2%;
 }
+
+#movie-photo,
+#drink-img {
+    box-shadow: 3px 4px var(--red-header-text);
+}
+
+.outlined-text {
+    -webkit-text-stroke: 1px black;
+    /* Text outline with a 2px black stroke */
+    text-stroke: 1px black;
+}
+
+#clear-box {
+    background-color: var(--light-pink);
+    color: var(--cherry-red);
+    border: 1px solid var(--light-pink);
+    border-radius: 5px;
+}
+
+#clear-box:hover {
+    background-color: var(--cherry-red);
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+
+    /* Styles for smaller screens */
+    #clear-box {
+        background-color: var(--cherry-red);
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+}
+
 
 .modal-card {
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
 }
 
 .modal-card-head {
@@ -79,6 +173,8 @@ input {
     align-self: center;
     max-height: 75%;
     max-width: 75%;
+    border-radius: 10px;
+    border: 3px solid var(--light-pink);
 }
 
 #modal-ingredients {
@@ -94,4 +190,32 @@ input {
 #modal-instructions {
     display: flex;
     align-self: center;
+}
+
+.modal-custom-header {
+    background-color: var(--cherry-red) !important;
+}
+
+.modal-custom-title {
+    color: var(--light-pink) !important;
+    font-weight: 600;
+}
+
+.modal-custom-body {
+    background-color: var(--dark-contrast) !important;
+}
+
+.modal-error-header {
+    background-color: var(--dark-contrast) !important;
+}
+
+.modal-error-body {
+    background-color: var(--light-pink) !important;
+    color: var(--dark-contrast);
+}
+
+.modal-text {
+    background-color: var(--light-pink) !important;
+    margin-top: 5%;
+    padding: 0 3% 2%;
 }
