@@ -12,13 +12,13 @@
 <body class="has-background-dark">
     <header class="header">
         <div class="app-title">
-            <h1 class="is-size-3 has-text-weight-semibold is-size-3-mobile is-size-2-tablet is-size-1-desktop">MovieMix
+            <h1 class="is-size-3 has-text-weight-semibold is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">MovieMix
             </h1>
             <div id="sub-app-title" class="is-flex is-flex-direction-row is-justify-content-between">
                 <h1 id="and"
-                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop">&
+                    class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">&
                 </h1>
-                <h1 class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop">Sip
+                <h1 class="is-size-3 has-text-weight-semibold  is-size-3-mobile is-size-2-tablet is-size-1-desktop outlined-text">Sip
                 </h1>
             </div>
         </div>
@@ -51,7 +51,7 @@
                         <img id="movie-photo" class="kb-rounded"
                             src="https://m.media-amazon.com/images/M/MV5BMWZiNjE2OWItMTkwNy00ZWQzLWI0NTgtMWE0NjNiYTljN2Q1XkEyXkFqcGdeQXVyNzAwMjYxMzA@._V1_SX300.jpg">
                     </div>
-                    <p id="movie-title-text" class="title has-text-danger-light py-4">Skyfall</p>
+                    <p id="movie-title-text" class="title has-text-danger-light py-4 ">Skyfall</p>
                 </div>
 
                 <div class="column p-0-mobile is-half is-flex is-flex-direction-column is-justify-content-center">
@@ -122,11 +122,11 @@
         <!-- below is the saved cocktail box -->
         <div id="favorites-box" class="box m-5 is-flex columns is-flex-direction-column p-2">
             <div class="pt-1 is-flex is-justify-content-center">
-                <p id="favorites-title" class="title has-text-dark m-0">Cocktail Favorites</p>
+                <p id="favorites-title" class="title m-0 outlined-text" style="color: var(--red-header-text);">Cocktail Favorites</p>
                 <button id="clear-box" class="is-auto ml-5"> Clear </button>
             </div>
-            <div id="favorite-cocktails" class="py-3 px-2 is-flex is-flex-direction-column-mobile is-justify-content-center"
-                style="overflow-x: auto; white-space: nowrap;"></div>
+            <div id="favorite-cocktails" class="py-3 px-2 is-flex"
+                style="overflow-x: auto; white-space: pre;"></div>
         </div>
     </main>
     <footer class="is-flex is-justify-content-center has-text-danger-light pb-5">

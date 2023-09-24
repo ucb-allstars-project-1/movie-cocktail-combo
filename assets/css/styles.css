@@ -115,6 +115,11 @@ input {
     box-shadow: 3px 4px var(--red-header-text);
 }
 
+.outlined-text {
+    -webkit-text-stroke: 1px black; /* Text outline with a 2px black stroke */
+    text-stroke: 1px black;
+}
+
 
 .modal-card {
     display: flex;

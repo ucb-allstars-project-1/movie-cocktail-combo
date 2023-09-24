@@ -176,13 +176,13 @@ function toggleCurrentDrink() {
   
   drinkHistory = JSON.parse(localStorage.getItem("storeDrinks")) || [];
 
-  // drinkHistory.push(drinkInfo);
+  drinkHistory.push(drinkInfo);
   
-  if(!drinkHistory.some(item => item["name"] === drink)) {
-    drinkHistory.push(drinkInfo);
-  } else {
-    drinkHistory = drinkHistory.filter(item => item.name !== drink);
-  }
+  // if(!drinkHistory.some(item => item["name"] === drink)) {
+  //   drinkHistory.push(drinkInfo);
+  // } else {
+  //   drinkHistory = drinkHistory.filter(item => item.name !== drink);
+  // }
 
   localStorage.setItem("storeDrinks", JSON.stringify(drinkHistory));
 }
@@ -190,15 +190,13 @@ function toggleCurrentDrink() {
 function createMiniCard(title) {
   miniCard = document.createElement("div");
   miniCard.classList.add("card", "m-1");
-  miniCard.style.cssText = `
-    box-shadow: 2px 3px var(--red-header-text);
-  `;
+  miniCard.style.cssText = `box-shadow: 2px 3px var(--red-header-text);`;
 
   cardImgContainer = document.createElement("div");
   cardImgContainer.classList.add("card-image");
   cardFigure = document.createElement("figure");
-  cardFigure.classList.add("is-4by3");
-  cardFigure.classList.add("image");
+  cardFigure.classList.add("image", "is-4by3");
+  // cardFigure.style.cssText = `max-width: 220px;`;
   cardImg = document.createElement("img");
   cardImg.setAttribute("src", title.url);
   cardFigure.appendChild(cardImg);
