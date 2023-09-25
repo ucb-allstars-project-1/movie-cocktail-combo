@@ -517,43 +517,58 @@ document.querySelector("#drink-img").addEventListener('click', () => {
       console.log(data);
 
       function modalDrinks() {
-
         const displayName = document.getElementById("modal-title");
         const displayImage = document.getElementById("modal-image-display");
         const displayIngredients = document.getElementById("modal-ingredients");
-        const displayMeasurements = document.getElementById("modal-measurements");
+        // const displayMeasurements = document.getElementById("modal-measurements");
         const displayInstructions = document.getElementById("modal-instructions");
 
         let drinkName = data.drinks[0].strDrink;
         //console.log(drinkName);
         let drinkImage = data.drinks[0].strDrinkThumb;
 
-        let ingredientsArray = []
+        // let ingredientsArray = []
 
-        for (i = 0; i < 16; i++) {
-          if (data.drinks[0]["strIngredient" + (i + 1)]) {
-            ingredientsArray.push(data.drinks[0]["strIngredient" + (i + 1)])
+        // for (i = 0; i < 16; i++) {
+        //   if (data.drinks[0]["strIngredient" + (i + 1)]) {
+        //     ingredientsArray.push(data.drinks[0]["strIngredient" + (i + 1)])
+        //   }
+        // }
+
+        // console.log(ingredientsArray);
+        // let drinkIngredients = "Ingredientxxxs: " + ingredientsArray.join(", ");
+
+        ////////
+        let ingredientsAndMeasures = 'Ingredients: ';
+        let drink = data.drinks[0];
+        let ingredients = createIngredientsList(drink);
+        let measurements = createMeasurementsList(drink);
+        for (i = 1; i <= 15; i++) {
+          if (ingredients[i] != null) {
+            ingredientsAndMeasures = (measurements[i] != null) ? ingredientsAndMeasures + ` ${measurements[i]} ${ingredients[i]}, `
+              : ingredientsAndMeasures + ` ${ingredients[i]},`;
           }
         }
 
-        console.log(ingredientsArray);
-        let drinkIngredients = "Ingredients: " + ingredientsArray.join(", ");
+        console.log(ingredientsAndMeasures);
 
-        let measurementArray = []
+        let drinkIngredients = ingredientsAndMeasures.trim().slice(0, -1);
 
-        for (i = 0; i < 16; i++) {
-          if (data.drinks[0]["strMeasure" + (i + 1)]) {
-            measurementArray.push(data.drinks[0]["strMeasure" + (i + 1)])
-          }
-        }
+        // let measurementArray = []
 
-        let drinkMeasurements = "Measurements: " + measurementArray.join(", ");
-        let drinkInstructions = data.drinks[0].strInstructions;
+        // for (i = 0; i < 16; i++) {
+        //   if (data.drinks[0]["strMeasure" + (i + 1)]) {
+        //     measurementArray.push(data.drinks[0]["strMeasure" + (i + 1)])
+        //   }
+        // }
+
+        // let drinkMeasurements = "Measurements: " + measurementArray.join(", ");
+        let drinkInstructions = drink.strInstructions;
 
         displayName.textContent = drinkName;
         displayImage.src = drinkImage;
         displayIngredients.textContent = drinkIngredients;
-        displayMeasurements.textContent = drinkMeasurements;
+        // displayMeasurements.textContent = drinkMeasurements;
         displayInstructions.textContent = drinkInstructions;
       }
 
