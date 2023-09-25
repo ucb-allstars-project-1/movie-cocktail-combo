@@ -179,13 +179,13 @@ function toggleCurrentDrink() {
 
   drinkHistory = JSON.parse(localStorage.getItem("storeDrinks")) || [];
 
-  drinkHistory.push(drinkInfo);
+  // drinkHistory.push(drinkInfo);
 
-  // if(!drinkHistory.some(item => item["name"] === drink)) {
-  //   drinkHistory.push(drinkInfo);
-  // } else {
-  //   drinkHistory = drinkHistory.filter(item => item.name !== drink);
-  // }
+  if(!drinkHistory.some(item => item["name"] === drink)) {
+    drinkHistory.push(drinkInfo);
+  } else {
+    drinkHistory = drinkHistory.filter(item => item.name !== drink);
+  }
 
   localStorage.setItem("storeDrinks", JSON.stringify(drinkHistory));
 }
@@ -194,18 +194,23 @@ function createMiniCard(title) {
   miniCard = document.createElement("div");
   miniCard.classList.add("card", "m-1");
   // miniCard.style.cssText = `box-shadow: 2px 3px var(--red-header-text);`;
+  miniCard.style.cssText = `
+  width: 165px;
+  height: 194.25px;
+  `;
 
   cardImgContainer = document.createElement("div");
   cardImgContainer.classList.add("card-image");
+  cardImgContainer.style.cssText = `width: 165px;`;
   cardFigure = document.createElement("figure");
-  cardFigure.classList.add("image", "is-4by3");
+  cardFigure.classList.add("image"); // , "is-4by3"
   // cardFigure.style.cssText = `max-width: 220px;`;
   cardImg = document.createElement("img");
   cardImg.setAttribute("src", title.url);
-  // cardImg.style.cssText = `
-  //   width: 164px;
-  //   height: 123px;
-  // `;
+  cardImg.style.cssText = `
+    width: 165px;
+    height: 123.75px;
+  `;
   cardFigure.appendChild(cardImg);
   cardImgContainer.appendChild(cardFigure);
   miniCard.appendChild(cardImgContainer);
@@ -217,8 +222,13 @@ function createMiniCard(title) {
   mediaContent.classList.add("media-content");
   movieTitle = document.createElement("p");
   movieTitle.classList.add("title", "is-5");
-  movieTitle.style.cssText = `color: var(--light-pink);`;
   movieTitle.textContent = title.name;
+  movieTitle.style.cssText = `
+    color: var(--light-pink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  `;
   mediaContent.appendChild(movieTitle);
   cardContent.appendChild(mediaContent);
   miniCard.appendChild(cardContent);
