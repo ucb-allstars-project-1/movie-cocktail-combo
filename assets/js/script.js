@@ -102,7 +102,7 @@ function createIngredientsAndMeasuresSideBySide() {
 
   console.log(ingredientsAndMeasures);
 
-  return ingredientsAndMeasures.slice(0, -2);
+  return ingredientsAndMeasures.trim().slice(0, -1);
 }
 
 // Made a request to select a drink by id
@@ -179,13 +179,13 @@ function toggleCurrentDrink() {
 
   drinkHistory = JSON.parse(localStorage.getItem("storeDrinks")) || [];
 
-  drinkHistory.push(drinkInfo);
+  // drinkHistory.push(drinkInfo);
 
-  // if(!drinkHistory.some(item => item["name"] === drink)) {
-  //   drinkHistory.push(drinkInfo);
-  // } else {
-  //   drinkHistory = drinkHistory.filter(item => item.name !== drink);
-  // }
+  if(!drinkHistory.some(item => item["name"] === drink)) {
+    drinkHistory.push(drinkInfo);
+  } else {
+    drinkHistory = drinkHistory.filter(item => item.name !== drink);
+  }
 
   localStorage.setItem("storeDrinks", JSON.stringify(drinkHistory));
 }
@@ -194,18 +194,23 @@ function createMiniCard(title) {
   miniCard = document.createElement("div");
   miniCard.classList.add("card", "m-1");
   // miniCard.style.cssText = `box-shadow: 2px 3px var(--red-header-text);`;
+  miniCard.style.cssText = `
+  width: 165px;
+  height: 194.25px;
+  `;
 
   cardImgContainer = document.createElement("div");
   cardImgContainer.classList.add("card-image");
+  cardImgContainer.style.cssText = `width: 165px;`;
   cardFigure = document.createElement("figure");
-  cardFigure.classList.add("image", "is-4by3");
+  cardFigure.classList.add("image"); // , "is-4by3"
   // cardFigure.style.cssText = `max-width: 220px;`;
   cardImg = document.createElement("img");
   cardImg.setAttribute("src", title.url);
-  // cardImg.style.cssText = `
-  //   width: 164px;
-  //   height: 123px;
-  // `;
+  cardImg.style.cssText = `
+    width: 165px;
+    height: 123.75px;
+  `;
   cardFigure.appendChild(cardImg);
   cardImgContainer.appendChild(cardFigure);
   miniCard.appendChild(cardImgContainer);
@@ -217,8 +222,13 @@ function createMiniCard(title) {
   mediaContent.classList.add("media-content");
   movieTitle = document.createElement("p");
   movieTitle.classList.add("title", "is-5");
-  movieTitle.style.cssText = `color: var(--light-pink);`;
   movieTitle.textContent = title.name;
+  movieTitle.style.cssText = `
+    color: var(--light-pink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  `;
   mediaContent.appendChild(movieTitle);
   cardContent.appendChild(mediaContent);
   miniCard.appendChild(cardContent);
@@ -265,39 +275,55 @@ function setFavoriteDrinks() {
               const displayName = document.getElementById("modal-title");
               const displayImage = document.getElementById("modal-image-display");
               const displayIngredients = document.getElementById("modal-ingredients");
-              const displayMeasurements = document.getElementById("modal-measurements");
+              // const displayMeasurements = document.getElementById("modal-measurements");
               const displayInstructions = document.getElementById("modal-instructions");
 
               let drinkName = data.drinks[0].strDrink;
               //console.log(drinkName);
               let drinkImage = data.drinks[0].strDrinkThumb;
 
-              let ingredientsArray = []
+              // let ingredientsArray = []
 
-              for (i = 0; i < 16; i++) {
-                if (data.drinks[0]["strIngredient" + (i + 1)]) {
-                  ingredientsArray.push(data.drinks[0]["strIngredient" + (i + 1)])
+              // for (i = 0; i < 16; i++) {
+              //   if (data.drinks[0]["strIngredient" + (i + 1)]) {
+              //     ingredientsArray.push(data.drinks[0]["strIngredient" + (i + 1)])
+              //   }
+              // }
+
+              // console.log(ingredientsArray);
+              // let drinkIngredients = "Ingredientxxxs: " + ingredientsArray.join(", ");
+
+              ////////
+              let ingredientsAndMeasures = 'Ingredients: ';
+              let drink = data.drinks[0];
+              let ingredients = createIngredientsList(drink);
+              let measurements = createMeasurementsList(drink);
+              for (i = 1; i <= 15; i++) {
+                if (ingredients[i] != null) {
+                  ingredientsAndMeasures = (measurements[i] != null) ? ingredientsAndMeasures + ` ${measurements[i]} ${ingredients[i]}, `
+                    : ingredientsAndMeasures + ` ${ingredients[i]},`;
                 }
               }
 
-              console.log(ingredientsArray);
-              let drinkIngredients = "Ingredients: " + ingredientsArray.join(", ");
+              console.log(ingredientsAndMeasures);
 
-              let measurementArray = []
+              let drinkIngredients = ingredientsAndMeasures.trim().slice(0, -1);
 
-              for (i = 0; i < 16; i++) {
-                if (data.drinks[0]["strMeasure" + (i + 1)]) {
-                  measurementArray.push(data.drinks[0]["strMeasure" + (i + 1)])
-                }
-              }
+              // let measurementArray = []
 
-              let drinkMeasurements = "Measurements: " + measurementArray.join(", ");
-              let drinkInstructions = data.drinks[0].strInstructions;
+              // for (i = 0; i < 16; i++) {
+              //   if (data.drinks[0]["strMeasure" + (i + 1)]) {
+              //     measurementArray.push(data.drinks[0]["strMeasure" + (i + 1)])
+              //   }
+              // }
+
+              // let drinkMeasurements = "Measurements: " + measurementArray.join(", ");
+              let drinkInstructions = drink.strInstructions;
 
               displayName.textContent = drinkName;
               displayImage.src = drinkImage;
               displayIngredients.textContent = drinkIngredients;
-              displayMeasurements.textContent = drinkMeasurements;
+              // displayMeasurements.textContent = drinkMeasurements;
               displayInstructions.textContent = drinkInstructions;
             }
 
@@ -338,10 +364,10 @@ function searchMovieByTitle(title, param) {
       return response.json();
     })
     .then(function (data) {
-      if(data.Response === "False") {
+      if (data.Response === "False") {
         throw new Error("Not a valid movie");
       }
-      if(data.Poster === "N/A") {
+      if (data.Poster === "N/A") {
         throw new Error("Missing movie details");
       }
       // console.log(data);
