@@ -1,7 +1,7 @@
 # MovieMix & Sip
 
 ## Description
-The ultimate movie companion for film enthusiasts and cocktail aficionados. With MovieMix & Sip, you can effortlessly elevate your movie nights. The interactive application allows the user to enter the film of their choice, explore in-depth film details, and find the perfect cocktail to complement their viewing experience. Use it for movie get-togethers with friends, Netflix-and-chill date nights, or as an spectacular solo saga.
+The ultimate movie companion for film enthusiasts and cocktail aficionados. With MovieMix & Sip, you can effortlessly elevate your movie nights. The interactive application allows the user to enter the film of their choice, explore in-depth film details, and find the perfect cocktail to complement their viewing experience. Use it for movie get-togethers with friends, Netflix-and-chill date nights, or as a spectacular solo saga.
 
 
 ## Installation
@@ -13,7 +13,9 @@ Once viewing the website, you can enter any movie into the input and press "Acti
 
 The drink name, photo, ingredients and instructions for preparation are all generated for a user. Once you click the 'Favorite' checkbox, that drink will be saved for future reference.
 
-![image of deployed application]([INSERT IMAGE JPG])
+This application is developed to be mobile-user friendly, with a more simple display on mobile screens in which the use can expand on data displayed with a click of each image displayed.
+
+![image of deployed application](/assets/images/screenshot.jpg)
 
 
 ## Credits
